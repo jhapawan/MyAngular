@@ -1,0 +1,56 @@
+<!-- SELECT2 EXAMPLE -->
+<div class="box box-default">
+  <div class="box-header with-border">
+    <h3 class="box-title">User Type</h3>
+
+    <div class="box-tools pull-right">
+      <!-- <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
+    <form action="" [formGroup]="pgUserType">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group has-feedback" [ngClass]="{'has-error': (!userType.valid && userType.touched), 'has-success': (userType.valid && userType.touched)}">
+            <label>User Type</label>
+            <input type="text" class="form-control" [formControl]="userType">
+            <div translate *ngIf="!userType.valid &&  userType.touched">
+              User type is not valid! Please Enter User Type.
+            </div>
+          </div>
+
+        </div>
+        <!-- /.col -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="form-group has-feedback" [ngClass]="{'has-error': (!isActive.valid && isActive.touched), 'has-success': (isActive.valid && isActive.touched)}">
+              <label>Is Active</label>
+
+              <select class="form-control" [formControl]="isActive">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+              <div translate *ngIf="!isActive.valid &&  isActive.touched">
+                Please select isAcive Yer Or No.!
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- /.col -->
+      </div>
+      <div class="row">
+
+      </div>
+    </form>
+    <!-- /.row -->
+  </div>
+  <!-- /.box-body -->
+  <div class="box-footer">
+
+  </div>
+</div>
+<!-- /.box -->

@@ -1,0 +1,73 @@
+<!-- Navigation -->
+
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">@pawanjha</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+      aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link">
+            <span class="sr-only">(current)</span>
+        </a>
+        </li>
+        <li class="nav-item">
+          <label class="loginText" for="loginName">User Name</label>
+          <input type="text" class="input-sm">
+        </li>
+        <li class="nav-item">
+          <label class="loginText" for="loginName">Password </label>
+          <input type="text" class="input-sm">
+        </li>
+        <li class="nav-item">
+          <input type="button" value="Log in" (click)="popToast()" class="btn btn-primary login">
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
+
+<div id="login-box">
+
+  <div class="left">
+    <h1>Sign up</h1>
+    <form [formGroup]="loginpage">
+
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
+        <input type="text" [formControl]="email" placeholder="E-mail">
+        <div class="bar" translate *ngIf="!email.valid &&  email.touched">
+          Email is not valid.
+        </div>
+      </div>
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+        <input type="password" [formControl]="password" placeholder="Password">
+        <div class="bar" class="dnager" translate *ngIf="!password.valid &&  password.touched">
+          Password must be min. 5 character.
+        </div>
+      </div>
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!reTypePassword.valid && reTypePassword.touched), 'has-success': (reTypePassword.valid && reTypePassword.touched)}">
+        <input type="password" [formControl]="reTypePassword" placeholder="Retype Password">
+        <div class="bar" class="dnager" translate *ngIf="!reTypePassword.valid &&  reTypePassword.touched && _retypePassword!=password.value">
+          Password and confirm password does not matched.
+        </div>
+      </div>
+
+      <input type="submit" [disabled]="!loginpage.valid" (click)="register()" name="signup_submit" value="Sign me up" />
+    </form>
+
+  </div>
+
+  <div class="right">
+    <span class="loginwith">Sign in with</span>
+
+    <button (click)="socialSignIn('facebook')" class="social-signin facebook">Log in with facebook</button>
+    <button (click)="socialSignIn('google')" class="social-signin google">Log in with Google</button>
+  </div>
+  <div class="or">OR</div>
+  <div class="col-sm-12">
+    <span class="error">{{errorMessage}}</span>
+  </div>
+</div>

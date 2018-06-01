@@ -1,0 +1,86 @@
+<form [formGroup]="updateProfile" novalidate>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!firstName.valid && firstName.touched), 'has-success': (firstName.valid && firstName.touched)}">
+        <label>First Name:</label>
+        <input class="form-control" [readonly]="userData.provider" type="text" placeholder="First Name" [formControl]="firstName">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!lastName.valid && lastName.touched), 'has-success': (lastName.valid && lastName.touched)}">
+        <label>Last Name:</label>
+        <input class="form-control" type="text" placeholder="Last Name" [formControl]="lastName">
+      </div>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
+        <label>Email:</label>
+        <input class="form-control" [readonly]="userData.provider" type="text" placeholder="Email" [formControl]="email">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!birthDate.valid && birthDate.touched), 'has-success': (birthDate.valid && birthDate.touched)}">
+        <label>Birth Date:</label>
+        <input class="form-control" type="text" [formControl]="birthDate" bsDatepicker placeholder="Birth Date" [formControl]="birthDate">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!country.valid && country.touched), 'has-success': (country.valid && country.touched)}">
+        <label>Country:</label>
+        <input formControlName="country" (blur)="loadState()" [typeahead]="countryArray" typeaheadOptionField="CountryName" class="form-control">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!state.valid && state.touched), 'has-success': (state.valid && state.touched)}">
+        <label>State:</label>
+        <input formControlName="state" (blur)="loadCity()" [typeahead]="stateArray" typeaheadOptionField="StateName" class="form-control">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!city.valid && city.touched), 'has-success': (city.valid && city.touched)}">
+        <label>City:</label>
+        <input formControlName="city" [typeahead]="stateCity" class="form-control">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!pinCode.valid && pinCode.touched), 'has-success': (pinCode.valid && pinCode.touched)}">
+        <label>Pin Code:</label>
+        <input class="form-control" type="text" [formControl]="pinCode" placeholder="Pin Code">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!phone.valid && phone.touched), 'has-success': (phone.valid && phone.touched)}">
+        <label>Phone:</label>
+        <input formControlName="phone" class="form-control">
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!about.valid && about.touched), 'has-success': (about.valid && about.touched)}">
+        <label>About:</label>
+        <!-- <input formControlName="about" multiple class="form-control"> -->
+        <textarea class="form-control" formControlName="about" rows="3" placeholder="Enter ..."></textarea>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-sm-12 pull-right">
+      <a (click)="updateProfileSubmit()" class="btn vd_btn btn-xs btn-primary"> <i class="fa fa-save append-icon"></i> Update  </a>
+    </div>
+  </div>
+
+
+</form>
