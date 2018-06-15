@@ -27,6 +27,8 @@ export class UpadateUserComponent implements OnInit {
   requestModeView: boolean = false;
   userData: UserModel = new UserModel();
   isEditAbout: boolean = false;
+  isEditExpEdu: boolean = false;
+  _EditExpEduText: string = "";
   constructor(private route: ActivatedRoute, private api: UserServiceService) {
     this.route.params.subscribe(params => { this.paramId = params.id; });
   }
@@ -51,9 +53,21 @@ export class UpadateUserComponent implements OnInit {
   }
   editAbout() {
     this.isEditAbout = !this.isEditAbout;
+    if (this.isEditAbout) { this.isEditExpEdu = false; }
+  }
+  addExpOrEdu() {
+    this.isEditExpEdu = !this.isEditExpEdu;
+    this._EditExpEduText = "EXPERIENCE";
+    if (this.isEditExpEdu == false) { this._EditExpEduText = ""; }
+    if (this.isEditExpEdu) { this.isEditAbout = false; }
   }
   updateProfile(value) {
     this.isEditAbout = !this.isEditAbout;
+    this.getUserData();
+
+  }
+  updateExeperienc(value) {
+    this.isEditExpEdu = !this.isEditExpEdu;
     this.getUserData();
   }
 

@@ -604,7 +604,7 @@ module.exports.updateUserById = function (req, res) {
 			var query = {
 				_id: new ObjectID(req.body._id)
 			};
-			console.log(query);
+
 			db.user.update(
 				query, {
 					$set: {
@@ -617,7 +617,9 @@ module.exports.updateUserById = function (req, res) {
 						"phone": req.body.phone,
 						"birthDate": req.body.birthDate,
 						"pinCode": req.body.pinCode,
-						"about": req.body.about
+						"about": req.body.about,
+						"profession": req.body.profession
+
 					}
 				},
 				function (err, object) {
@@ -644,6 +646,131 @@ module.exports.updateUserById = function (req, res) {
 
 
 };
+
+function validateExeperience(req) {
+	req.checkBody('from', 'Invalid From Date.').notEmpty(); //server side validation
+	req.checkBody('companyName', 'Invalid Company Name').notEmpty();
+	//req.checkBody('pwd', '6 to 20 characters required').len(6, 20);
+	req.checkBody('roleResponsibility', 'Role and responsibility cannot be blank.').notEmpty();
+	req.checkBody('designation', 'Designation is not valid').notEmpty();
+	return req.validationErrors();
+}
+
+module.exports.addExperience = function (req, res) {
+
+	var _id = new ObjectID(req.body.gid);
+	var isValidate = validateExeperience(req);
+	if (isValidate) {
+
+		return res.json({
+			status: config.ERROR_STATUS,
+			msg: isValidate
+		});
+	} else {
+		let query = {
+			'_id': new ObjectID(req.body.gid)
+		};
+		db.user.findOne(query, function (err, data) {
+			if (err) {
+				//printLog(err);
+				return res.json({
+					status: config.ERROR_STATUS,
+					msg: err
+				});
+			}
+			if (data) {
+
+				let _exeperience = [];
+
+				let exeperience = {};
+				exeperience.from = req.body.from;
+				exeperience.to = req.body.to;
+				exeperience.isCurrentOrganisation = req.body.isCurrentOrganisation;
+				exeperience.companyName = req.body.companyName;
+				exeperience.roleResponsibility = req.body.roleResponsibility;
+				exeperience.designation = req.body.designation;
+
+
+				if (data.exeperience) {
+					_exeperience = data.exeperience;
+					console.log(data.exeperience);
+					_exeperience.push(exeperience);
+					var query = {
+						_id: new ObjectID(req.body.gid)
+					};
+					db.user.update(
+						query, {
+							$set: {
+								"exeperience": _exeperience
+							}
+						},
+						function (err, object) {
+							if (err) {
+								console.log(err)
+								return res.json({
+									status: config.ERROR_STATUS,
+									msg: err
+								});
+							} else {
+
+								return res.json({
+									status: config.SUCCESS_STATUS,
+									msg: "Updated Sucessfully."
+								});
+							}
+
+						}
+					)
+				} else {
+					var query = {
+						'_id': new ObjectID(req.body.gid)
+					};
+					_exeperience.push(exeperience);
+					db.user.update(
+						query, {
+							$set: {
+								"exeperience": _exeperience
+							}
+						},
+						function (err, object) {
+							if (err) {
+								console.log(err)
+								return res.json({
+									status: config.ERROR_STATUS,
+									msg: err
+								});
+							} else {
+
+								return res.json({
+									status: config.SUCCESS_STATUS,
+									msg: "Updated Sucessfully."
+								});
+							}
+
+						}
+					)
+				}
+
+			} else {
+				return res.json({
+					status: config.ERROR_STATUS,
+					msg: "Invalid Operation."
+				});
+
+			}
+		});
+	}
+
+
+
+
+};
+
+module.exports.removeExprience = function (req, res) {
+	
+	
+	
+	};
 
 module.exports.sendResetLink = function (req, res) {
 	crypto.randomBytes(20, function (err, buf) {

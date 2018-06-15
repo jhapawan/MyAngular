@@ -16,4 +16,6 @@ export class UserModel {
     state: string;
     pinCode: string;
     about: string;
+    profession: String;
+    exeperience: any = [];
 }

@@ -19,6 +19,7 @@ import { UpadateUserComponent } from './admin/upadate-user/upadate-user.componen
 import { UpdateAboutComponent } from './admin/upadate-user/update-about/update-about.component';
 import { BsDatepickerModule, TypeaheadModule } from 'ngx-bootstrap';
 import { AgmCoreModule } from '@agm/core';
+import { AddExeperienceComponent } from './admin/upadate-user/add-exeperience/add-exeperience.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,7 @@ import { AgmCoreModule } from '@agm/core';
       libraries: ['places'],
     })
   ],
-  declarations: [AdminComponent, HeaderComponent, FooterComponent, SettingComponent, MenuComponent, AddUserComponent, UserTypeComponent, UpadateUserComponent, UpdateAboutComponent]
+  declarations: [AdminComponent, HeaderComponent, FooterComponent, SettingComponent, MenuComponent, AddUserComponent, UserTypeComponent, UpadateUserComponent, UpdateAboutComponent, AddExeperienceComponent]
   , providers: [AuthGuard, UserServiceService, DataCommunicateService, CommonService]
 })
 export class AdminModule { }

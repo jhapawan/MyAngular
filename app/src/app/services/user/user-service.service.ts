@@ -43,5 +43,18 @@ export class UserServiceService {
       return this.http.post(url, formData, httpOptions).map(res => res);
     }
   }
+  addExeperience(formData: any): Observable<any> {
+    {
+      let url = this.baseApiUrl + "user/addexeperience";
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'x-access-token': this.accessToken.access_token
+        })
+      };
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+      return this.http.post(url, formData, httpOptions).map(res => res);
+    }
+  }
 
 }

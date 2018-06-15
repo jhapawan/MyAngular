@@ -1,0 +1,62 @@
+<form [formGroup]="addExeperienceForm" novalidate>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!companyName.valid && companyName.touched), 'has-success': (companyName.valid && companyName.touched)}">
+        <label>Organisation Name:</label>
+        <input class="form-control" type="text" placeholder="companyName" [formControl]="companyName">
+
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!isCurrentOrganisation.valid && isCurrentOrganisation.touched), 'has-success': (isCurrentOrganisation.valid && isCurrentOrganisation.touched)}">
+        <label>Current Organisation:</label>
+        <!-- <input class="checkbox-primary form-control" type="checkbox" [formControl]="isCurrentOrganisation"> -->
+        <!-- <input type="checkbox" checked data-toggle="toggle" [formControl]="isCurrentOrganisation"> -->
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"  [formControl]="isCurrentOrganisation" (change)="isCurrentEmployeer()" >
+            Is Your Current Organisation
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!from.valid && from.touched), 'has-success': (from.valid && from.touched)}">
+        <label>From:</label>
+        <input class="form-control" type="text" bsDatepicker placeholder="From Date" [formControl]="from">
+      </div>
+    </div>
+    <div class="col-sm-6" *ngIf="!isCurrentOrganisation.value">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!to.valid && to.touched), 'has-success': (to.valid && to.touched)}">
+        <label>To:</label>
+        <input class="form-control" type="text" bsDatepicker placeholder="End Date" [formControl]="to">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!designation.valid && designation.touched), 'has-success': (designation.valid && designation.touched)}">
+        <label>Designation:</label>
+        <input formControlName="designation" [formControl]="designation" class="form-control">
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!roleResponsibility.valid && roleResponsibility.touched), 'has-success': (roleResponsibility.valid && roleResponsibility.touched)}">
+        <label>Role Responsibility:</label>
+        <textarea formControlName="designation" [formControl]="roleResponsibility" class="form-control"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 pull-right">
+      <a class="btn vd_btn btn-xs btn-primary" (click)="addExeperience()"> <i class="fa fa-save append-icon"></i> Add  </a>
+    </div>
+  </div>
+</form>

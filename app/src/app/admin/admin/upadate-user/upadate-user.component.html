@@ -23,18 +23,18 @@
             alt="User profile picture">
 
           <h3 class="profile-username text-center" *ngIf="userData">{{userData.name}}</h3>
-          <p class="text-muted text-center">Software Engineer</p>
+          <p class="text-muted text-center">{{userData.profession}}</p>
           <strong><i class="fa fa-file-text-o margin-r-5"></i> About</strong>
           <p *ngIf="userData">{{userData?.about}}</p>
         </div>
         <!-- /.box-body -->
       </div>
       <!-- About Me Box -->
-      <div class="box box-primary">
+      <!-- <div class="box box-primary">
         <div class="box-header with-border">
           <h3 class="box-title">About Me</h3>
         </div>
-        <!-- /.box-header -->
+        
         <div class="box-body">
           <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
 
@@ -66,8 +66,8 @@
 
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
         </div>
-        <!-- /.box-body -->
-      </div>
+        
+      </div> -->
     </div>
     <!-- /.col -->
     <div class="col-md-9">
@@ -154,33 +154,25 @@
               <app-update-about (profileUpdated)='updateProfile($event)' [userData]="userData"></app-update-about>
             </div>
             <hr class="pd-10" />
-            <div class="row">
+            <div class="row" *ngIf="!isEditExpEdu" [@someCoolAnimation]="'fadeIn'">
               <div class="col-sm-7 mgbt-xs-20">
                 <h3 class="mgbt-xs-15 font-semibold"><i class="fa fa-file-text-o mgr-10 profile-icon"></i> EXPERIENCE</h3>
                 <div class="content-list content-menu">
                   <ul class="list-wrapper">
-                    <li class="mgbt-xs-10"> <span class="menu-icon vd_green">
-                        <i class="fa  fa-circle-o"></i></span> <span class="menu-text">
-                           <a href="http://www.venmond.com">Owner</a> at <a href="http://www.venmond.com">Vendroid Ltd.</a> <span class="menu-info"><span class="menu-date"> March 2013 ~ Now</span></span>
-                      <div class="vd_info tr pull-right"> <a class="btn vd_btn btn-xs vd_bg-yellow" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-trash append-icon"></i> </a></div>
+                    <li class="mgbt-xs-10" *ngFor="let data of userData.exeperience">
+                      <span class="menu-icon vd_green">
+                          <i class="fa  fa-circle-o"></i></span> <span class="menu-text">
+                             <a href="#">{{data.designation}}</a> at <a href="#">{{data.companyName}}</a> <span class="menu-info">
+                               <span class="menu-date"> {{data.from | date:'MMM-yyyy'}} ~ {{data.to | date:'MMM-yyyy'}}</span></span>
+                      <p>{{data.roleResponsibility}}</p>
+                      <div class="vd_info tr pull-right"> <a (click)="removeExp()" class="btn vd_btn btn-xs vd_bg-yellow"> <i class="fa fa-trash append-icon"></i> </a></div>
                       </span>
 
                     </li>
-                    <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> <a href="http://www.venmond.com">CEO</a> at <a href="http://www.venmond.com">Mc. Dondon</a> <span class="menu-info"><span class="menu-date"> March 2011 ~ February 2013</span></span>
-                      <div class="vd_info tr pull-right"> <a class="btn vd_btn btn-xs vd_bg-yellow" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-trash append-icon"></i> </a></div>
-                      </span>
-                    </li>
-                    <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> <a href="http://www.venmond.com">Web Designer</a> at <a href="http://www.venmond.com">Web Design Company Ltd.</a> <span class="menu-info"><span class="menu-date"> March 2010 ~ February 2011</span></span>
-                      <div class="vd_info tr pull-right"> <a class="btn vd_btn btn-xs vd_bg-yellow" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-trash append-icon"></i> </a></div>
-                      </span>
-                    </li>
-                    <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> <a href="http://www.venmond.com">Sales</a> at <a href="http://www.venmond.com">Sales Company Ltd.</a> <span class="menu-info"><span class="menu-date"> March 2009 ~ February 2010</span></span>
-                      <div class="vd_info tr pull-right"> <a class="btn vd_btn btn-xs vd_bg-yellow" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-trash append-icon"></i> </a></div>
-                      </span>
-                    </li>
                   </ul>
-                  <div class="vd_info tr pull-right"> <a class="btn vd_btn btn-xs vd_bg-yellow" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-pencil append-icon"></i> Add More </a></div>
                 </div>
+
+                <div (click)="addExpOrEdu()" class="vd_info tr pull-right"> <a class="btn vd_btn btn-xs vd_bg-yellow"> <i class="fa fa-pencil append-icon"></i> Add More </a></div>
               </div>
               <div class="col-sm-5">
                 <h3 class="mgbt-xs-15 font-semibold"><i class="fa fa-trophy mgr-10 profile-icon"></i> EDUCATION</h3>
@@ -206,6 +198,11 @@
                   <div class="vd_info tr pull-right"> <a class="btn vd_btn btn-xs vd_bg-yellow" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-pencil append-icon"></i> Add More </a></div>
                 </div>
               </div>
+            </div>
+            <div class="row" style="padding: 14px" *ngIf="isEditExpEdu" [@someCoolAnimation]="'fadeIn'">
+              <h3 class="mgbt-xs-15 font-semibold"><i class="fa fa-file-text-o mgr-10 profile-icon"></i> {{_EditExpEduText}} </h3>
+              <div class="vd_info tr pull-right"><a class="btn vd_btn btn-xs vd_bg-yellow" *ngIf="isEditExpEdu" (click)="addExpOrEdu()"> <i class="fa fa-close append-icon"></i> Cancel</a></div>
+              <app-add-exeperience (getExeperience)='updateExeperienc($event)' [userData]="userData"></app-add-exeperience>
             </div>
             <!-- row -->
             <hr class="pd-10" />

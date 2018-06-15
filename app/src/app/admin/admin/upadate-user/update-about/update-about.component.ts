@@ -34,6 +34,7 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
   pinCode: AbstractControl;
   about: AbstractControl;
   _id: AbstractControl;
+  profession: AbstractControl;
   /* @param fb End of form declartion    */
 
   countryArray: any[];
@@ -87,6 +88,7 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
         'birthDate': [this.userData.birthDate, Validators.compose([Validators.required])],
         'pinCode': [this.userData.phone, Validators.compose([Validators.required])],
         'about': [this.userData.about, Validators.compose([Validators.required])],
+        'profession': [this.userData.profession, Validators.compose([Validators.required])],
 
       })
     this.firstName = this.updateProfile.controls['firstName'];
@@ -100,6 +102,8 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
     this.pinCode = this.updateProfile.controls['pinCode'];
     this.about = this.updateProfile.controls['about'];
     this._id = this.updateProfile.controls['_id'];
+    this.profession = this.updateProfile.controls['profession'];
+
   }
   loadMap(): any {
     this.mapsAPILoader.load().then(
