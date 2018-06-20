@@ -18,4 +18,6 @@ export class UserModel {
     about: string;
     profession: String;
     exeperience: any = [];
+    education: any = [];
+    skill: any = [];
 }

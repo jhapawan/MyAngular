@@ -71,12 +71,6 @@ export class AddExeperienceComponent implements OnInit {
     });
   }
   isCurrentEmployeer() {
-    if (this.isCurrentOrganisation.value == true) {
-      this.to.clearValidators();
-    }
-    else {
-      this.to.setValidators([Validators.required]);
-      this.to.updateValueAndValidity();
-    }
+    
   }
 }

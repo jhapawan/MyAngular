@@ -2,7 +2,7 @@ import { UserModel } from './../../../shared/model/user';
 import { UserServiceService } from './../../../services/user/user-service.service';
 import { Token } from './../../../shared/usertoken';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Component, OnInit, trigger, state, transition, style, group, animate } from '@angular/core';
+import { Component, OnInit, trigger, state, transition, style, group, animate, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-upadate-user',
@@ -29,6 +29,9 @@ export class UpadateUserComponent implements OnInit {
   isEditAbout: boolean = false;
   isEditExpEdu: boolean = false;
   _EditExpEduText: string = "";
+  loadEducation: boolean = false;
+  changeDetectorRef: ChangeDetectorRef[] = [];
+  editSkills: boolean = false;
   constructor(private route: ActivatedRoute, private api: UserServiceService) {
     this.route.params.subscribe(params => { this.paramId = params.id; });
   }
@@ -55,9 +58,13 @@ export class UpadateUserComponent implements OnInit {
     this.isEditAbout = !this.isEditAbout;
     if (this.isEditAbout) { this.isEditExpEdu = false; }
   }
-  addExpOrEdu() {
+  addExpOrEdu(sender) {
     this.isEditExpEdu = !this.isEditExpEdu;
-    this._EditExpEduText = "EXPERIENCE";
+    this.loadEducation = false;
+    console.log(sender);
+    if (sender == 'exp') {
+      this._EditExpEduText = "EXPERIENCE";
+    } else { this._EditExpEduText = "EDUCATION"; this.loadEducation = true; }
     if (this.isEditExpEdu == false) { this._EditExpEduText = ""; }
     if (this.isEditExpEdu) { this.isEditAbout = false; }
   }
@@ -70,5 +77,37 @@ export class UpadateUserComponent implements OnInit {
     this.isEditExpEdu = !this.isEditExpEdu;
     this.getUserData();
   }
+  removeData(data, deleteObject) {
 
+    if (deleteObject === 'exp') {
+
+      let dataExp: Array<any> = this.userData.exeperience;
+      let indexOfObject = dataExp.indexOf(data);
+      if (indexOfObject > -1) {
+        dataExp.splice(indexOfObject, 1);
+        this.userData.exeperience = dataExp;
+      }
+    } else {
+      let dataEdu: Array<any> = this.userData.education;
+      let indexOfObject = dataEdu.indexOf(data);
+      if (indexOfObject > -1) {
+        dataEdu.splice(indexOfObject, 1);
+        this.userData.education = dataEdu;
+      }
+    }
+
+    this.api.updaetExeperienceEducation(this.userData).subscribe(
+      x => { console.log(x); this.getUserData(); }
+      , Error => { console.log(Error) }
+    )
+
+  }
+  AddSkills() {
+    this.editSkills = !this.editSkills;
+  }
+  updateSkill(value) {
+    this.editSkills = !this.editSkills;
+    this.getUserData();
+    console.log(this.userData);
+  }
 }

@@ -1,0 +1,40 @@
+<form [formGroup]="addEducationForm" novalidate>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!instituteName.valid && instituteName.touched), 'has-success': (instituteName.valid && instituteName.touched)}">
+        <label>What is your School / Institute / College name?</label>
+        <input class="form-control" type="text" placeholder="instituteName" [formControl]="instituteName">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!classStartFrom.valid && classStartFrom.touched), 'has-success': (classStartFrom.valid && classStartFrom.touched)}">
+        <label>From which date you have started ?</label>
+        <input class="form-control" type="text" bsDatepicker placeholder="Start Date " [formControl]="classStartFrom">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!classStartTo.valid && classStartTo.touched), 'has-success': (classStartTo.valid && classStartTo.touched)}">
+        <label>Date on which you have completed ?</label>
+        <input class="form-control" type="text" bsDatepicker placeholder="End Date" [formControl]="classStartTo">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!nameOfPersuingClass.valid && nameOfPersuingClass.touched), 'has-success': (nameOfPersuingClass.valid && nameOfPersuingClass.touched)}">
+        <label>Which class you have attaineded:</label>
+        <input formControlName="nameOfPersuingClass" [formControl]="nameOfPersuingClass" class="form-control">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 pull-right">
+      <a class="btn vd_btn btn-xs btn-primary" (click)="addEducation()"> <i class="fa fa-save append-icon"></i> Add  </a>
+    </div>
+  </div>
+</form>

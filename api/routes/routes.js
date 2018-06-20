@@ -12,7 +12,9 @@ app = express();
 var upload = multer()
 
 // create application/x-www-form-urlencoded parser 
-var urlencodedParser = bodyParser.urlencoded({ extended: true })
+var urlencodedParser = bodyParser.urlencoded({
+    extended: true
+})
 
 module.exports = function (app, controller) {
 
@@ -30,13 +32,16 @@ module.exports = function (app, controller) {
     app.post('/api/user/updateuserbyid', user.updateUserById);
     app.post('/api/user/creatnewuser', user.creatNewUser);
     app.post('/api/user/addexeperience', user.addExperience);
+    app.post('/api/user/addeducation', user.addEducation);
+    app.post('/api/user/addskill', user.addSkill);
+    app.post('/api/user/updateprofiledetails', user.updateExperienceEducation);
     app.post('/api/user/updateGroupbyid', user.updateGroupById);
     app.post('/api/user/updatepassword', user.updatePassword);
     app.post('/api/user/createusergroup', user.creatUserGroup);
     app.post('/api/user/deleteusergroup', user.deleteUserGroup);
     app.post('/api/user/updatevendorcompany', user.updateVendorCompany);
     app.post('/api/common/updatefile', common.uploadFile);
-    
+
 
     /*Master Data  */
     app.post('/api/master/saveroomcategory', master.saveRoomCategory);

@@ -1,0 +1,30 @@
+<form [formGroup]="addSkill" novalidate>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!skill.valid && skill.touched), 'has-success': (skill.valid && skill.touched)}">
+        <label>Skill</label>
+        <input class="form-control" type="text" placeholder="skill" [formControl]="skill">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!proficiencyLevel.valid && proficiencyLevel.touched), 'has-success': (proficiencyLevel.valid && proficiencyLevel.touched)}">
+        <label>Proficiency Level (0/100)</label>
+        <input class="form-control" type="number" placeholder="Proficiency" [formControl]="proficiencyLevel">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!version.valid && version.touched), 'has-success': (version.valid && version.touched)}">
+        <label>version?</label>
+        <input class="form-control" type="text" placeholder="Version" [formControl]="version">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 pull-right">
+      <a class="btn vd_btn btn-xs btn-primary" (click)="addSkills()">
+        <i class="fa fa-save append-icon"></i> Add </a>
+    </div>
+  </div>
+</form>

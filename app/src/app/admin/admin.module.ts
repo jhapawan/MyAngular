@@ -1,3 +1,4 @@
+import { OrderBy } from './../services/shared/orderby';
 import { CommonService } from './../services/shared/common.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DataCommunicateService } from './../services/data-communicate.service';
@@ -20,6 +21,8 @@ import { UpdateAboutComponent } from './admin/upadate-user/update-about/update-a
 import { BsDatepickerModule, TypeaheadModule } from 'ngx-bootstrap';
 import { AgmCoreModule } from '@agm/core';
 import { AddExeperienceComponent } from './admin/upadate-user/add-exeperience/add-exeperience.component';
+import { AddEducationComponent } from './admin/upadate-user/add-education/add-education.component';
+import { AddSkillComponent } from './admin/upadate-user/add-skill/add-skill.component';
 
 @NgModule({
   imports: [
@@ -30,7 +33,7 @@ import { AddExeperienceComponent } from './admin/upadate-user/add-exeperience/ad
       libraries: ['places'],
     })
   ],
-  declarations: [AdminComponent, HeaderComponent, FooterComponent, SettingComponent, MenuComponent, AddUserComponent, UserTypeComponent, UpadateUserComponent, UpdateAboutComponent, AddExeperienceComponent]
+  declarations: [AdminComponent, HeaderComponent, FooterComponent, SettingComponent, MenuComponent, AddUserComponent, UserTypeComponent, UpadateUserComponent, UpdateAboutComponent, AddExeperienceComponent, AddEducationComponent,OrderBy, AddSkillComponent]
   , providers: [AuthGuard, UserServiceService, DataCommunicateService, CommonService]
 })
 export class AdminModule { }

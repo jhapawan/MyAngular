@@ -19,12 +19,12 @@
       <!-- Profile Image -->
       <div class="box box-primary">
         <div class="box-body box-profile">
-          <img class="profile-user-img img-responsive img-circle" src="https://lh3.googleusercontent.com/-6M8ZvCd4kN0/AAAAAAAAAAI/AAAAAAAABHo/SOkrqewENOo/s96-"
-            alt="User profile picture">
+          <img class="profile-user-img img-responsive img-circle" src="{{userData.image}}" alt="User profile picture">
 
           <h3 class="profile-username text-center" *ngIf="userData">{{userData.name}}</h3>
           <p class="text-muted text-center">{{userData.profession}}</p>
-          <strong><i class="fa fa-file-text-o margin-r-5"></i> About</strong>
+          <strong>
+            <i class="fa fa-file-text-o margin-r-5"></i> About</strong>
           <p *ngIf="userData">{{userData?.about}}</p>
         </div>
         <!-- /.box-body -->
@@ -73,17 +73,26 @@
     <div class="col-md-9">
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
-          <li><a href="#timeline" data-toggle="tab">Timeline</a></li>
-          <li><a href="#settings" data-toggle="tab">Settings</a></li>
+          <li class="active">
+            <a href="#profile" data-toggle="tab">Profile</a>
+          </li>
+          <li>
+            <a href="#timeline" data-toggle="tab">Timeline</a>
+          </li>
+          <li>
+            <a href="#settings" data-toggle="tab">Settings</a>
+          </li>
         </ul>
         <div class="tab-content">
           <div class="active tab-pane" id="profile">
             <div class="vd_info tr pull-right">
-              <a class="btn vd_btn btn-xs vd_bg-yellow" *ngIf="!isEditAbout" (click)="editAbout()"> <i class="fa fa-pencil append-icon"></i> Edit </a>
-              <a class="btn vd_btn btn-xs vd_bg-yellow" *ngIf="isEditAbout" (click)="editAbout()"> <i class="fa fa-close append-icon"></i> Cancel</a>
+              <a class="btn vd_btn btn-xs vd_bg-yellow" *ngIf="!isEditAbout" (click)="editAbout()">
+                <i class="fa fa-pencil append-icon"></i> Edit </a>
+              <a class="btn vd_btn btn-xs vd_bg-yellow" *ngIf="isEditAbout" (click)="editAbout()">
+                <i class="fa fa-close append-icon"></i> Cancel</a>
             </div>
-            <h3 class="mgbt-xs-15 mgtp-10 font-semibold"><i class="fa fa-user fa-2x"></i> ABOUT</h3>
+            <h3 class="mgbt-xs-15 mgtp-10 font-semibold">
+              <i class="fa fa-user fa-2x"></i> ABOUT</h3>
             <div class="row" *ngIf="!isEditAbout" [@someCoolAnimation]="'fadeOut'">
               <div class="col-sm-6">
                 <div class="row mgbt-xs-0">
@@ -155,54 +164,78 @@
             </div>
             <hr class="pd-10" />
             <div class="row" *ngIf="!isEditExpEdu" [@someCoolAnimation]="'fadeIn'">
-              <div class="col-sm-7 mgbt-xs-20">
-                <h3 class="mgbt-xs-15 font-semibold"><i class="fa fa-file-text-o mgr-10 profile-icon"></i> EXPERIENCE</h3>
+              <div class="col-sm-6">
+                <h3 class="mgbt-xs-15 font-semibold">
+                  <i class="fa fa-file-text-o mgr-10 profile-icon"></i> EXPERIENCE
+                  <div (click)="addExpOrEdu('exp')" class="vd_info tr pull-right">
+                    <a class="btn vd_btn btn-xs vd_bg-yellow">
+                      <i class="fa fa-pencil append-icon"></i> Add More </a>
+                  </div>
+                </h3>
                 <div class="content-list content-menu">
-                  <ul class="list-wrapper">
-                    <li class="mgbt-xs-10" *ngFor="let data of userData.exeperience">
+                  <ul class="list-wrapper" *ngIf="userData.exeperience">
+                    <li class="mgbt-xs-10" *ngFor="let data of userData.exeperience | orderBy:'to':false">
                       <span class="menu-icon vd_green">
-                          <i class="fa  fa-circle-o"></i></span> <span class="menu-text">
-                             <a href="#">{{data.designation}}</a> at <a href="#">{{data.companyName}}</a> <span class="menu-info">
-                               <span class="menu-date"> {{data.from | date:'MMM-yyyy'}} ~ {{data.to | date:'MMM-yyyy'}}</span></span>
-                      <p>{{data.roleResponsibility}}</p>
-                      <div class="vd_info tr pull-right"> <a (click)="removeExp()" class="btn vd_btn btn-xs vd_bg-yellow"> <i class="fa fa-trash append-icon"></i> </a></div>
+                        <i class="fa  fa-circle-o"></i>
                       </span>
-
+                      <span class="menu-text">
+                        <a href="#">{{data.designation}}</a> at
+                        <a href="#">{{data.companyName}}</a>
+                        <span class="menu-info">
+                          <span class="menu-date"> {{data.from | date:'MMM-yyyy'}} ~ {{data.to | date:'MMM-yyyy'}}</span>
+                        </span>
+                        <p>{{data.roleResponsibility}}</p>
+                        <div class="vd_info tr pull-right">
+                          <a class="btn vd_btn btn-xs vd_bg-yellow" (click)="removeData(data,'exp')" data-toggle="modal" data-target="#modal-default">
+                            <i class="fa fa-trash append-icon"></i>
+                          </a>
+                        </div>
+                      </span>
                     </li>
                   </ul>
                 </div>
-
-                <div (click)="addExpOrEdu()" class="vd_info tr pull-right"> <a class="btn vd_btn btn-xs vd_bg-yellow"> <i class="fa fa-pencil append-icon"></i> Add More </a></div>
               </div>
-              <div class="col-sm-5">
-                <h3 class="mgbt-xs-15 font-semibold"><i class="fa fa-trophy mgr-10 profile-icon"></i> EDUCATION</h3>
+              <div class="col-sm-6">
+                <h3 class="mgbt-xs-15 font-semibold">
+                  <i class="fa fa-trophy mgr-10 profile-icon"></i> EDUCATION
+                  <div (click)="addExpOrEdu('education')" class="vd_info tr pull-right">
+                    <a class="btn vd_btn btn-xs vd_bg-yellow">
+                      <i class="fa fa-pencil append-icon"></i> Add More </a>
+                  </div>
+                </h3>
                 <div class="content-list content-menu">
-                  <ul class="list-wrapper">
-                    <li class="mgbt-xs-10"> <span class="menu-icon vd_green"><i class="fa  fa-circle-o"></i></span> <span class="menu-text"> Bachelor's degree, E-Commerce/Electronic Commerce at <a href="http://www.venmond.com">UCLA</a> <span class="menu-info"><span class="menu-date"> August 2003 ~ July 2008</span></span>
-                      <div class="vd_info tr pull-right"> <a class="btn vd_btn btn-xs vd_bg-yellow" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-trash append-icon"></i> </a></div>
+                  <ul class="list-wrapper" *ngIf="userData.education">
+                    <li class="mgbt-xs-10" *ngFor="let data of userData.education | orderBy:'classStartFrom':false">
+                      <span class="menu-icon vd_green">
+                        <i class="fa  fa-circle-o"></i>
+                      </span>
+                      <span class="menu-text">{{data.nameOfPersuingClass}} at
+                        <a href="#">{{data.instituteName}}</a>
+                        <span class="menu-info">
+                          <span class="menu-date"> {{data.classStartFrom | date:'MMM-yyyy'}} ~ {{data.classStartTo | date:'MMM-yyyy'}}</span>
+                        </span>
+                        <div class="vd_info tr pull-right">
+                          <a class="btn vd_btn btn-xs vd_bg-yellow" (click)="removeData(data,'edu')" data-toggle="modal" data-target="#modal-default">
+                            <i class="fa fa-trash append-icon"></i>
+                          </a>
+                        </div>
                       </span>
                     </li>
-                    <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> Student at <a href="http://www.venmond.com">Web Design Education</a> <span class="menu-info"><span class="menu-date"> March 2006 ~ February 2007</span></span>
-                      <div class="vd_info tr pull-right"> <a class="btn vd_btn btn-xs vd_bg-yellow" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-trash append-icon"></i> </a></div>
-                      </span>
-                    </li>
-                    <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> Student at <a href="http://www.venmond.com">St. Louis High School</a> <span class="menu-info"><span class="menu-date"> August 2000 ~ July 2003 </span></span>
-                      <div class="vd_info tr pull-right"> <a class="btn vd_btn btn-xs vd_bg-yellow" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-trash append-icon"></i> </a></div>
-                      </span>
-                    </li>
-                    <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> Student at <a href="http://www.venmond.com">St. Monica Junior High School</a> <span class="menu-info"><span class="menu-date"> August 1998 ~ July 2000</span></span>
-                      <div class="vd_info tr pull-right"> <a class="btn vd_btn btn-xs vd_bg-yellow" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-trash append-icon"></i> </a></div>
-                      </span>
-                    </li>
+
                   </ul>
-                  <div class="vd_info tr pull-right"> <a class="btn vd_btn btn-xs vd_bg-yellow" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-pencil append-icon"></i> Add More </a></div>
+
                 </div>
               </div>
             </div>
             <div class="row" style="padding: 14px" *ngIf="isEditExpEdu" [@someCoolAnimation]="'fadeIn'">
-              <h3 class="mgbt-xs-15 font-semibold"><i class="fa fa-file-text-o mgr-10 profile-icon"></i> {{_EditExpEduText}} </h3>
-              <div class="vd_info tr pull-right"><a class="btn vd_btn btn-xs vd_bg-yellow" *ngIf="isEditExpEdu" (click)="addExpOrEdu()"> <i class="fa fa-close append-icon"></i> Cancel</a></div>
-              <app-add-exeperience (getExeperience)='updateExeperienc($event)' [userData]="userData"></app-add-exeperience>
+              <h3 class="mgbt-xs-15 font-semibold">
+                <i class="fa fa-file-text-o mgr-10 profile-icon"></i> {{_EditExpEduText}} </h3>
+              <div class="vd_info tr pull-right">
+                <a class="btn vd_btn btn-xs vd_bg-yellow" *ngIf="isEditExpEdu" (click)="addExpOrEdu('')">
+                  <i class="fa fa-close append-icon"></i> Cancel</a>
+              </div>
+              <app-add-exeperience *ngIf="!loadEducation" (getExeperience)='updateExeperienc($event)' [userData]="userData"></app-add-exeperience>
+              <app-add-education *ngIf="loadEducation" (getEducation)='updateExeperienc($event)' [userData]="userData"></app-add-education>
             </div>
             <!-- row -->
             <hr class="pd-10" />
@@ -248,54 +281,36 @@
                 </div>
               </div> -->
               <!-- col-sm-7 -->
-              <div class="col-sm-5">
-                <h3 class="mgbt-xs-15 font-semibold"><i class="fa fa-flask mgr-10 profile-icon"></i> SKILL</h3>
-                <div class="skill-list">
-                  <div class="skill-name"> Photoshop </div>
-                  <div class="progress  progress-sm">
-                    <div style="width: 90%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="90" role="progressbar" class="progress-bar progress-bar-success ">
-                      <span class="sr-only">90%</span> </div>
+              <div class="col-sm-5" [@someCoolAnimation]="'fadeIn'">
+                <h3 class="mgbt-xs-15 font-semibold">
+                  <i class="fa fa-flask mgr-10 profile-icon"></i> SKILL
+                  <div class="vd_info tr pull-right">
+                    <a class="btn vd_btn btn-xs vd_bg-yellow" (click)="AddSkills()" data-toggle="modal" data-target="#modal-default">
+                      <i class="fa fa-pencil append-icon"></i> Add More </a>
+                  </div>
+                </h3>
+                <div class="row" style="margin-left: 5px" *ngIf="!editSkills">
+                  <div class="progress" *ngFor="let data of userData.skill">
+                    <div role="progressbar" style="text-align: center" aria-valuenow="data.proficiencyLevel" aria-valuemin="0" aria-valuemax="100"
+                      [style.width]="data.proficiencyLevel+'%'" [ngClass]="{'progress-bar progress-bar-success': (data.proficiencyLevel>=75),
+                           'progress-bar progress-bar-yellow': (data.proficiencyLevel>=60 && data.proficiencyLevel<75),
+                           'progress-bar progress-bar-danger': (data.proficiencyLevel>=30 && data.proficiencyLevel<60)}">
+                      {{data.skill}}
+                    </div>
+                    <div class="vd_info tr pull-right" style="margin: 5px" >
+                      <a class="btn vd_btn btn-xs vd_bg-yellow" (click)="removeData(data,'edu')" data-toggle="modal" data-target="#modal-default">
+                        <i class="fa fa-trash append-icon"></i>
+                      </a>
+                    </div>
                   </div>
                 </div>
-                <div class="skill-list">
-                  <div class="skill-name"> Illustrator </div>
-                  <div class="progress  progress-sm">
-                    <div style="width: 20%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="20" role="progressbar" class="progress-bar progress-bar-danger ">
-                      <span class="sr-only">20%</span> </div>
-                  </div>
-                </div>
-                <div class="skill-list">
-                  <div class="skill-name"> PHP </div>
-                  <div class="progress  progress-sm">
-                    <div style="width: 50%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" role="progressbar" class="progress-bar progress-bar-warning ">
-                      <span class="sr-only">50% Complete</span> </div>
-                  </div>
-                </div>
-                <div class="skill-list">
-                  <div class="skill-name"> Javascript </div>
-                  <div class="progress  progress-sm">
-                    <div style="width: 60%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-info ">
-                      <span class="sr-only">60% Complete</span> </div>
-                  </div>
-                </div>
-                <div class="skill-list">
-                  <div class="skill-name"> Communication </div>
-                  <div class="progress  progress-sm">
-                    <div style="width: 95%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="95" role="progressbar" class="progress-bar progress-bar-success ">
-                      <span class="sr-only">95% Complete</span> </div>
-                  </div>
-                </div>
-                <div class="skill-list">
-                  <div class="skill-name"> Writing </div>
-                  <div class="progress  progress-sm">
-                    <div style="width: 45%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-warning ">
-                      <span class="sr-only">45% Complete</span> </div>
-                  </div>
-                </div>
-                <div class="vd_info tr pull-right"> <a class="btn vd_btn btn-xs vd_bg-yellow" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-pencil append-icon"></i> Add More </a></div>
+
               </div>
 
               <!-- col-sm-7 -->
+            </div>
+            <div class="row" *ngIf="editSkills" class="row" style="margin: 14px" [@someCoolAnimation]="'fadeIn'">
+              <app-add-skill (updateSkill)='updateSkill($event)' [userData]="userData"></app-add-skill>
             </div>
             <!-- row -->
 
@@ -307,8 +322,8 @@
               <!-- timeline time label -->
               <li class="time-label">
                 <span class="bg-red">
-                          10 Feb. 2014
-                        </span>
+                  10 Feb. 2014
+                </span>
               </li>
               <!-- /.timeline-label -->
               <!-- timeline item -->
@@ -316,9 +331,11 @@
                 <i class="fa fa-envelope bg-blue"></i>
 
                 <div class="timeline-item">
-                  <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                  <span class="time">
+                    <i class="fa fa-clock-o"></i> 12:05</span>
 
-                  <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                  <h3 class="timeline-header">
+                    <a href="#">Support Team</a> sent you an email</h3>
 
                   <div class="timeline-body">
                     Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr jibjab, movity
@@ -336,9 +353,11 @@
                 <i class="fa fa-user bg-aqua"></i>
 
                 <div class="timeline-item">
-                  <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+                  <span class="time">
+                    <i class="fa fa-clock-o"></i> 5 mins ago</span>
 
-                  <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request
+                  <h3 class="timeline-header no-border">
+                    <a href="#">Sarah Young</a> accepted your friend request
                   </h3>
                 </div>
               </li>
@@ -348,9 +367,11 @@
                 <i class="fa fa-comments bg-yellow"></i>
 
                 <div class="timeline-item">
-                  <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
+                  <span class="time">
+                    <i class="fa fa-clock-o"></i> 27 mins ago</span>
 
-                  <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                  <h3 class="timeline-header">
+                    <a href="#">Jay White</a> commented on your post</h3>
 
                   <div class="timeline-body">
                     Take me to your leader! Switzerland is small and neutral! We are more like Germany, ambitious and misunderstood!
@@ -364,8 +385,8 @@
               <!-- timeline time label -->
               <li class="time-label">
                 <span class="bg-green">
-                          3 Jan. 2014
-                        </span>
+                  3 Jan. 2014
+                </span>
               </li>
               <!-- /.timeline-label -->
               <!-- timeline item -->
@@ -373,9 +394,11 @@
                 <i class="fa fa-camera bg-purple"></i>
 
                 <div class="timeline-item">
-                  <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+                  <span class="time">
+                    <i class="fa fa-clock-o"></i> 2 days ago</span>
 
-                  <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+                  <h3 class="timeline-header">
+                    <a href="#">Mina Lee</a> uploaded new photos</h3>
 
                   <div class="timeline-body">
                     <img src="http://placehold.it/150x100" alt="..." class="margin">
@@ -434,8 +457,9 @@
                 <div class="col-sm-offset-2 col-sm-10">
                   <div class="checkbox">
                     <label>
-                          <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                        </label>
+                      <input type="checkbox"> I agree to the
+                      <a href="#">terms and conditions</a>
+                    </label>
                   </div>
                 </div>
               </div>

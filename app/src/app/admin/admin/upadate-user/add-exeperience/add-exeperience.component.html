@@ -1,24 +1,10 @@
 <form [formGroup]="addExeperienceForm" novalidate>
 
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <div class="form-group has-feedback" [ngClass]="{'has-error': (!companyName.valid && companyName.touched), 'has-success': (companyName.valid && companyName.touched)}">
         <label>Organisation Name:</label>
         <input class="form-control" type="text" placeholder="companyName" [formControl]="companyName">
-
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="form-group has-feedback" [ngClass]="{'has-error': (!isCurrentOrganisation.valid && isCurrentOrganisation.touched), 'has-success': (isCurrentOrganisation.valid && isCurrentOrganisation.touched)}">
-        <label>Current Organisation:</label>
-        <!-- <input class="checkbox-primary form-control" type="checkbox" [formControl]="isCurrentOrganisation"> -->
-        <!-- <input type="checkbox" checked data-toggle="toggle" [formControl]="isCurrentOrganisation"> -->
-        <div class="checkbox">
-          <label>
-            <input type="checkbox"  [formControl]="isCurrentOrganisation" (change)="isCurrentEmployeer()" >
-            Is Your Current Organisation
-          </label>
-        </div>
       </div>
     </div>
   </div>
@@ -55,8 +41,20 @@
     </div>
   </div>
   <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!isCurrentOrganisation.valid && isCurrentOrganisation.touched), 'has-success': (isCurrentOrganisation.valid && isCurrentOrganisation.touched)}">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" [formControl]="isCurrentOrganisation" (change)="isCurrentEmployeer()"> {{companyName.value  | uppercase}} is Your Current Organisation ?
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-sm-12 pull-right">
-      <a class="btn vd_btn btn-xs btn-primary" (click)="addExeperience()"> <i class="fa fa-save append-icon"></i> Add  </a>
+      <a class="btn vd_btn btn-xs btn-primary" (click)="addExeperience()">
+        <i class="fa fa-save append-icon"></i> Add </a>
     </div>
   </div>
 </form>

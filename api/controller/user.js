@@ -766,11 +766,260 @@ module.exports.addExperience = function (req, res) {
 
 };
 
-module.exports.removeExprience = function (req, res) {
-	
-	
-	
+function validateEducation(req) {
+	req.checkBody('instituteName', 'School / College / Institute Name is invalid.').notEmpty(); //server side validation
+	req.checkBody('classStartFrom', 'Whan you stared the class cannot be empty').notEmpty();
+	req.checkBody('classStartTo', 'Enter the last date .').notEmpty();
+	req.checkBody('nameOfPersuingClass', 'Whats is your persuing class name').notEmpty();
+	return req.validationErrors();
+}
+module.exports.addEducation = function (req, res) {
+
+	var _id = new ObjectID(req.body.gid);
+	var isValidate = validateEducation(req);
+	if (isValidate) {
+
+		return res.json({
+			status: config.ERROR_STATUS,
+			msg: isValidate
+		});
+	} else {
+		let query = {
+			'_id': new ObjectID(req.body.gid)
+		};
+		db.user.findOne(query, function (err, data) {
+			if (err) {
+				//printLog(err);
+				return res.json({
+					status: config.ERROR_STATUS,
+					msg: err
+				});
+			}
+			if (data) {
+
+				let _education = [];
+
+				let education = {};
+				education.instituteName = req.body.instituteName;
+				education.classStartFrom = req.body.classStartFrom;
+				education.classStartTo = req.body.classStartTo;
+				education.nameOfPersuingClass = req.body.nameOfPersuingClass;
+
+				if (data.education) {
+					_education = data.education;
+					_education.push(education);
+					var query = {
+						_id: new ObjectID(req.body.gid)
+					};
+					db.user.update(
+						query, {
+							$set: {
+								"education": _education
+							}
+						},
+						function (err, object) {
+							if (err) {
+								console.log(err)
+								return res.json({
+									status: config.ERROR_STATUS,
+									msg: err
+								});
+							} else {
+
+								return res.json({
+									status: config.SUCCESS_STATUS,
+									msg: "Updated Sucessfully."
+								});
+							}
+
+						}
+					)
+				} else {
+					var query = {
+						'_id': new ObjectID(req.body.gid)
+					};
+					_education.push(education);
+					db.user.update(
+						query, {
+							$set: {
+								"education": _education
+							}
+						},
+						function (err, object) {
+							if (err) {
+								console.log(err)
+								return res.json({
+									status: config.ERROR_STATUS,
+									msg: err
+								});
+							} else {
+
+								return res.json({
+									status: config.SUCCESS_STATUS,
+									msg: "Updated Sucessfully."
+								});
+							}
+
+						}
+					)
+				}
+
+			} else {
+				return res.json({
+					status: config.ERROR_STATUS,
+					msg: "Invalid Operation."
+				});
+
+			}
+		});
+	}
+
+
+
+
+};
+
+function validateSkill(req) {
+	req.checkBody('skill', 'Skill Name cannot be blank.').notEmpty(); //server side validation
+	req.checkBody('proficiencyLevel', 'Profienciency cannot be blank.').notEmpty();
+	req.checkBody('version', 'Please mention used last version.').notEmpty();
+	return req.validationErrors();
+}
+module.exports.addSkill = function (req, res) {
+
+	var _id = new ObjectID(req.body.gid);
+	var isValidate = validateSkill(req);
+	if (isValidate) {
+
+		return res.json({
+			status: config.ERROR_STATUS,
+			msg: isValidate
+		});
+	} else {
+		let query = {
+			'_id': new ObjectID(req.body.gid)
+		};
+		db.user.findOne(query, function (err, data) {
+			if (err) {
+				//printLog(err);
+				return res.json({
+					status: config.ERROR_STATUS,
+					msg: err
+				});
+			}
+			if (data) {
+
+				let _skill = [];
+
+				let skill = {};
+				skill.skill = req.body.skill;
+				skill.proficiencyLevel = req.body.proficiencyLevel;
+				skill.version = req.body.version;
+				skill.lastUsed = req.body.lastUsed;
+
+				if (data.skill) {
+					_skill = data.skill;
+					_skill.push(skill);
+					var query = {
+						_id: new ObjectID(req.body.gid)
+					};
+					db.user.update(
+						query, {
+							$set: {
+								"skill": _skill
+							}
+						},
+						function (err, object) {
+							if (err) {
+								console.log(err)
+								return res.json({
+									status: config.ERROR_STATUS,
+									msg: err
+								});
+							} else {
+
+								return res.json({
+									status: config.SUCCESS_STATUS,
+									msg: "Updated Sucessfully."
+								});
+							}
+
+						}
+					)
+				} else {
+					var query = {
+						'_id': new ObjectID(req.body.gid)
+					};
+					_skill.push(skill);
+					db.user.update(
+						query, {
+							$set: {
+								"skill": _skill
+							}
+						},
+						function (err, object) {
+							if (err) {
+								console.log(err)
+								return res.json({
+									status: config.ERROR_STATUS,
+									msg: err
+								});
+							} else {
+
+								return res.json({
+									status: config.SUCCESS_STATUS,
+									msg: "Updated Sucessfully."
+								});
+							}
+
+						}
+					)
+				}
+
+			} else {
+				return res.json({
+					status: config.ERROR_STATUS,
+					msg: "Invalid Operation."
+				});
+
+			}
+		});
+	}
+};
+
+module.exports.updateExperienceEducation = function (req, res) {
+
+
+	var query = {
+		'_id': new ObjectID(req.body._id)
 	};
+	db.user.update(
+		query, {
+			$set: {
+				"education": req.body.education,
+				"exeperience": req.body.exeperience,
+				"skill": req.body.skill,
+			}
+		},
+		function (err, object) {
+			if (err) {
+				console.log(err)
+				return res.json({
+					status: config.ERROR_STATUS,
+					msg: err
+				});
+			} else {
+
+				return res.json({
+					status: config.SUCCESS_STATUS,
+					msg: "Updated Sucessfully."
+				});
+			}
+
+		}
+	)
+
+};
 
 module.exports.sendResetLink = function (req, res) {
 	crypto.randomBytes(20, function (err, buf) {
