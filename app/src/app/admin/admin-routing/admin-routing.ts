@@ -12,18 +12,27 @@ import { RouterModule, Routes } from '@angular/router';
 const appRoute: Routes = [
     {
         path: 'admin',
+        data: {
+            breadcrumb: "Admin"
+        },
         component: AdminComponent,
         canActivate: [AuthGuard],
         children: [
             {
                 path: '',
                 redirectTo: 'dashboard1',
-                pathMatch: 'full'
+                pathMatch: 'full',
+                data: {
+                    breadcrumb: "DashBoard"
+                }
 
             },
             {
                 path: 'add-user',
-                component: AddUserComponent
+                component: AddUserComponent,
+                data: {
+                    breadcrumb: "Add User"
+                }
             },
             {
                 path: 'user-type',
@@ -31,15 +40,24 @@ const appRoute: Routes = [
             },
             {
                 path: 'profile-view/:id',
-                component: UpadateUserComponent
+                component: UpadateUserComponent,
+                data: {
+                    breadcrumb: "View Profile"
+                }
             },
             {
                 path: 'profile-edit/:id',
-                component: UpadateUserComponent
+                component: UpadateUserComponent,
+                data: {
+                    breadcrumb: "Edit Profile"
+                }
             },
             {
                 path: 'profile-edit-about/:id',
-                component: UpdateAboutComponent
+                component: UpdateAboutComponent,
+                data: {
+                    breadcrumb: "Edit Profile"
+                }
             },
         ]
     }

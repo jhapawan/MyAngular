@@ -87,7 +87,7 @@ export class UpadateUserComponent implements OnInit {
         dataExp.splice(indexOfObject, 1);
         this.userData.exeperience = dataExp;
       }
-    } else {
+    } else if (deleteObject === 'edu') {
       let dataEdu: Array<any> = this.userData.education;
       let indexOfObject = dataEdu.indexOf(data);
       if (indexOfObject > -1) {
@@ -95,7 +95,14 @@ export class UpadateUserComponent implements OnInit {
         this.userData.education = dataEdu;
       }
     }
-
+    else {
+      let dataSkill: Array<any> = this.userData.skill;
+      let indexOfObject = dataSkill.indexOf(data);
+      if (indexOfObject > -1) {
+        dataSkill.splice(indexOfObject, 1);
+        this.userData.skill = dataSkill;
+      }
+    }
     this.api.updaetExeperienceEducation(this.userData).subscribe(
       x => { console.log(x); this.getUserData(); }
       , Error => { console.log(Error) }

@@ -988,8 +988,6 @@ module.exports.addSkill = function (req, res) {
 };
 
 module.exports.updateExperienceEducation = function (req, res) {
-
-
 	var query = {
 		'_id': new ObjectID(req.body._id)
 	};
@@ -1420,4 +1418,66 @@ module.exports.updateVendorCompany = function (req, res, next) {
 			)
 		};
 	})
+}
+module.exports.saveGalaryImage = function (req, res) {
+	console.log("Pawan");
+	console.log(req.body);
+	let savedImage = [];
+	var storage = multer.diskStorage({ //multers disk storage settings
+		destination: function (req, file, cb) {
+			cb(null, './images/user/');
+		},
+		filename: function (req, file, cb) {
+			let datetimestamp = Date.now();
+			let fileName;
+			if (file.originalname == "blob") {
+				fileName = file.fieldname + '-' + datetimestamp + '.jpg'
+			} else {
+				fileName = file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1];
+			}
+			savedImage.push({
+				'imageSource': '/images/hotel/' + fileName
+			});
+			cb(null, fileName);
+		}
+	});
+	var upload = multer({
+		storage: storage
+	}).any();
+
+	upload(req, res, function (err) {
+		if (err) {
+			res.json({
+				status: config.ERROR_STATUS,
+				msg: err
+			});
+			return;
+		} else {
+
+			query = {
+				_id: new ObjectID(req.body.userId)
+			}
+			db.user.update(
+				query, {
+					$set: {
+						"galary": savedImage,
+					}
+				},
+				function (err, object) {
+					if (err) {
+						console.log(err)
+						return res.json({
+							status: config.ERROR_STATUS,
+							msg: err
+						});
+					} else {
+						return res.json({
+							status: config.SUCCESS_STATUS,
+							msg: "Hotel gallary added sucessfully."
+						});
+					}
+				}
+			)
+		}
+	});
 }

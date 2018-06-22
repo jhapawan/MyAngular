@@ -23,6 +23,8 @@ import { AgmCoreModule } from '@agm/core';
 import { AddExeperienceComponent } from './admin/upadate-user/add-exeperience/add-exeperience.component';
 import { AddEducationComponent } from './admin/upadate-user/add-education/add-education.component';
 import { AddSkillComponent } from './admin/upadate-user/add-skill/add-skill.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { UserGallaryComponent } from './admin/user-gallary/user-gallary.component';
 
 @NgModule({
   imports: [
@@ -33,7 +35,7 @@ import { AddSkillComponent } from './admin/upadate-user/add-skill/add-skill.comp
       libraries: ['places'],
     })
   ],
-  declarations: [AdminComponent, HeaderComponent, FooterComponent, SettingComponent, MenuComponent, AddUserComponent, UserTypeComponent, UpadateUserComponent, UpdateAboutComponent, AddExeperienceComponent, AddEducationComponent,OrderBy, AddSkillComponent]
+  declarations: [AdminComponent, HeaderComponent, FooterComponent, SettingComponent, MenuComponent, AddUserComponent, UserTypeComponent, UpadateUserComponent, UpdateAboutComponent, AddExeperienceComponent, AddEducationComponent, OrderBy, AddSkillComponent, BreadcrumbComponent, UserGallaryComponent]
   , providers: [AuthGuard, UserServiceService, DataCommunicateService, CommonService]
 })
 export class AdminModule { }

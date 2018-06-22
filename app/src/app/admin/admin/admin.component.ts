@@ -1,5 +1,5 @@
 import { LoaderService } from './../../services/shared/loader';
-import { Component, OnInit, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ChangeDetectorRef, Input } from '@angular/core';
 
 @Component({
   selector: 'app-admin',
@@ -8,6 +8,8 @@ import { Component, OnInit, AfterViewChecked, ChangeDetectorRef } from '@angular
 })
 export class AdminComponent implements OnInit {
 
+  @Input() pateTitle;
+  @Input() breadcumTitle;
   showLoader: boolean;
   constructor(
     private loaderService: LoaderService, private cd: ChangeDetectorRef) {

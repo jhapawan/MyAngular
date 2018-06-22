@@ -40,7 +40,11 @@ module.exports = function (app, controller) {
     app.post('/api/user/createusergroup', user.creatUserGroup);
     app.post('/api/user/deleteusergroup', user.deleteUserGroup);
     app.post('/api/user/updatevendorcompany', user.updateVendorCompany);
+    app.post('/api/user/updategallary', user.saveGalaryImage);
+
     app.post('/api/common/updatefile', common.uploadFile);
+
+
 
 
     /*Master Data  */

@@ -95,5 +95,27 @@ export class UserServiceService {
       return this.http.post(url, formData, httpOptions).map(res => res);
     }
   }
+  updateGallary(data: any): Observable<any> {
+    let formdata = new FormData();
+
+    let fieldName;
+    Object.keys(data).forEach(x => {
+      // console.log(x);
+      // console.log(data[x]);
+      formdata.append(x, data[x]);
+      fieldName = data[x];
+    });
+    data.galary.forEach(element => {
+      formdata.append(fieldName, element.image);
+    });
+    let url = this.baseApiUrl + "user/updategallary";
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'x-access-token': this.accessToken.access_token
+      })
+    };
+    // return this.http.post(url, formdata, optionstest).map(res => res.json());
+    return this.http.post(url, formdata, httpOptions).map(res => res);
+  }
 
 }
