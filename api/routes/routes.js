@@ -24,6 +24,7 @@ module.exports = function (app, controller) {
     app.get('/api/user/finduserrole', user.findUserRole);
     app.get('/api/user/findgroupbyid', user.findGroupById);
     app.get('/api/user/findalluser', user.findAllUser);
+    app.get('/api/user/getallpack', user.getAllPack);
     app.get('/api/user/finduserbyid', user.findUserById);
     app.post('/api/user/updatevendor', user.updateVendor);
     app.post('/api/user/createvendor', user.createVendor);

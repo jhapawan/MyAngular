@@ -12,7 +12,6 @@
 
 <!-- Main content -->
 <section class="content">
-
   <div class="row">
     <div class="col-md-3">
 
@@ -296,12 +295,19 @@
                   <ul class="todo-list" *ngIf="userData.skill">
                     <li *ngFor="let data of userData.skill | orderBy:'skill':true">
                       <div class="progress" style="margin-top: 2px">
-                        <div role="progressbar" class="col-md-4" style="text-align:center" aria-valuenow="data.proficiencyLevel" aria-valuemin="0"
-                          aria-valuemax="100" [style.width]="data.proficiencyLevel+'%'" [ngClass]="{'progress-bar progress-bar-success': (data.proficiencyLevel>=75),
-                                       'progress-bar progress-bar-yellow': (data.proficiencyLevel>=60 && data.proficiencyLevel<75),
-                                       'progress-bar progress-bar-danger': (data.proficiencyLevel>=30 && data.proficiencyLevel<60)}">
+                        <div *ngIf="data.proficiencyLevel=='basic'" role="progressbar" class="col-md-4" style="text-align:center" aria-valuenow="40"
+                          aria-valuemin="0" aria-valuemax="100" [style.width]="40+'%'" [ngClass]="{'progress-bar progress-bar-red': (data.proficiencyLevel=='basic')}">
                           {{data.skill}}
                         </div>
+                        <div *ngIf="data.proficiencyLevel=='average'" role="progressbar" class="col-md-4" style="text-align:center" aria-valuenow="60"
+                          aria-valuemin="0" aria-valuemax="100" [style.width]="60+'%'" [ngClass]="{'progress-bar progress-bar-yellow': (data.proficiencyLevel=='average')}">
+                          {{data.skill}}
+                        </div>
+                        <div *ngIf="data.proficiencyLevel=='good'" role="progressbar" class="col-md-4" style="text-align:center" aria-valuenow="90"
+                          aria-valuemin="0" aria-valuemax="100" [style.width]="80+'%'" [ngClass]="{'progress-bar progress-bar-success': (data.proficiencyLevel=='good')}">
+                          {{data.skill}}
+                        </div>
+
                         <div class="tools">
                           <i (click)="removeData(data,'skill')" class="fa fa-trash-o"></i>
                         </div>
@@ -324,8 +330,7 @@
           </div>
           <!-- /.tab-pane -->
           <div class="tab-pane" id="galary">
-            <app-user-gallary [userData]="userData"></app-user-gallary>
-            
+            <app-user-gallary *ngIf="userData" [userData]="userData"></app-user-gallary>
           </div>
           <!-- /.tab-pane -->
 

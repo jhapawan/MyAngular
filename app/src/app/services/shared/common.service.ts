@@ -1,3 +1,4 @@
+import { RsaService } from './../../shared/helper/rsaservice';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Token } from './../../shared/usertoken';
@@ -8,8 +9,8 @@ import { Injectable } from '@angular/core';
 export class CommonService {
   private baseApiUrl = appConfig.apiUrl;
   private accessToken: Token;
-  constructor(private http: HttpClient) {
-    this.accessToken = JSON.parse(localStorage.getItem("session"));
+  constructor(private http: HttpClient, private rsa: RsaService) {
+    this.accessToken = JSON.parse(this.rsa.decrypt(localStorage.getItem("session")));
 
   }
   createAuthorizationHeader(headers: HttpHeaders) {
@@ -28,7 +29,7 @@ export class CommonService {
   }
   getStates(countryName: string): Observable<any> {
     let url = this.baseApiUrl + "common/getstates?countryname=" + countryName;
-    
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

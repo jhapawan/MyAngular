@@ -11,14 +11,22 @@
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group has-feedback" [ngClass]="{'has-error': (!classStartFrom.valid && classStartFrom.touched), 'has-success': (classStartFrom.valid && classStartFrom.touched)}">
-        <label>From which date you have started ?</label>
-        <input class="form-control" type="text" bsDatepicker placeholder="Start Date " [formControl]="classStartFrom">
+        <label>Which year you have started?</label>
+        <select class="form-control" [formControl]="classStartFrom">
+          <option *ngFor="let summary of yearRange" value={{summary}}>
+            {{summary}}
+          </option>
+        </select>
       </div>
     </div>
     <div class="col-sm-6">
       <div class="form-group has-feedback" [ngClass]="{'has-error': (!classStartTo.valid && classStartTo.touched), 'has-success': (classStartTo.valid && classStartTo.touched)}">
-        <label>Date on which you have completed ?</label>
-        <input class="form-control" type="text" bsDatepicker placeholder="End Date" [formControl]="classStartTo">
+        <label>Year in which you have completed?</label>
+        <select class="form-control" [formControl]="classStartTo">
+          <option *ngFor="let summary of yearRange" value={{summary}}>
+            {{summary}}
+          </option>
+        </select>
       </div>
     </div>
   </div>
@@ -34,7 +42,8 @@
 
   <div class="row">
     <div class="col-sm-12 pull-right">
-      <a class="btn vd_btn btn-xs btn-primary" (click)="addEducation()"> <i class="fa fa-save append-icon"></i> Add  </a>
+      <a class="btn vd_btn btn-xs btn-primary" (click)="addEducation()">
+        <i class="fa fa-save append-icon"></i> Add </a>
     </div>
   </div>
 </form>

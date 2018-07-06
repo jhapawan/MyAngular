@@ -155,19 +155,51 @@ module.exports.validatetoken = function (req, res) {
     }
 }
 doSocialRegistration = function (data, res) {
+
     var queryUserExist = {
         "email": data.email,
-        "provider": data.provider
+        "provider": {
+            $in: ['google', 'facebook']
+        }
     };
     data.cdt = new Date();
     data.status = 'Active';
     data.isactive = true;
-    
+
+
     db.user.findOne(queryUserExist, function (err, existingData) {
+
         if (err) {
             console.log("Error Ocured");
         } else if (existingData) {
             // console.log(existingData);
+            if (existingData.provider.filter(word => word == data.provider).length == 0) {
+
+                let provider = existingData.provider;
+                provider.push(data.provider);
+                var queryUpdate = {
+                    "email": data.email
+                };
+                if (data.provider == 'google') {
+                    db.user.update(queryUpdate, {
+                        $set: {
+                            "googleId": data.googleId,
+                            "googleImage": data.googleImage,
+                            "provider": provider
+                        }
+                    }, function (err, object) {})
+
+                } else {
+                    db.user.update(queryUpdate, {
+                        $set: {
+                            "facebookId": data.facebookId,
+                            "facebookImage": data.facebookImage,
+                            "provider": provider
+                        }
+                    }, function (err, object) {})
+                }
+
+            }
             var token = jwt.sign(existingData, apiSecret, {
                 expiresIn: 10080 // expires in 24 hours
             });
@@ -184,10 +216,28 @@ doSocialRegistration = function (data, res) {
                 email: existingData.email,
                 name: existingData.name,
                 provider: existingData.provider,
-                image: existingData.image,
                 cDate: existingData.cdt,
+                lastName: existingData.lastName,
+                phone: existingData.phone,
+                birthDate: existingData.birthDate,
+                city: existingData.city,
+                country: existingData.country,
+                state: existingData.state,
+                pinCode: existingData.pinCode,
+                about: existingData.about,
+                profession: existingData.profession,
+                exeperience: existingData.exeperience,
+                education: existingData.education,
+                skill: existingData.skill,
+                galary: existingData.galary,
+                googleId: existingData.googleId,
+                googleImage: existingData.googleImage,
+                facebookId: existingData.facebookId,
+                facebookImage: existingData.facebookImage,
+
             });
         } else {
+            data.provider = [data.provider];
             db.user.save(data, function (errSave, dataSaved) {
                 if (errSave) {
                     console.log("Error Ocured while going to save the user")
@@ -209,10 +259,28 @@ doSocialRegistration = function (data, res) {
                         name: dataSaved.name,
                         provider: dataSaved.provider,
                         image: dataSaved.image,
-                        cDate: dataSaved.cdt
+                        cDate: dataSaved.cdt,
+                        lastName: dataSaved.lastName,
+                        phone: dataSaved.phone,
+                        birthDate: dataSaved.birthDate,
+                        city: dataSaved.city,
+                        country: dataSaved.country,
+                        state: dataSaved.state,
+                        pinCode: dataSaved.pinCode,
+                        about: dataSaved.about,
+                        profession: dataSaved.profession,
+                        exeperience: dataSaved.exeperience,
+                        education: dataSaved.education,
+                        skill: dataSaved.skill,
+                        galary: dataSaved.galary,
+                        googleId: dataSaved.googleId,
+                        googleImage: dataSaved.googleImage,
+                        facebookId: dataSaved.facebookId,
+                        facebookImage: dataSaved.facebookImage,
                     });
                 }
             })
         }
+
     })
 }

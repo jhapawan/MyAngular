@@ -1,3 +1,4 @@
+import { DashboardComponent } from './../admin/admin/dashboard/dashboard.component';
 import { AuthGuard } from './../auth.guard';
 import { AdminComponent } from './../admin/admin/admin.component';
 import { NgModule } from '@angular/core';
@@ -7,10 +8,11 @@ import { LoginComponent } from '../login/login.component';
 const appRoute: Routes = [
 
   {
-    path: 'admin',
+    path: 'home',
     loadChildren: 'app/admin/admin.module#AdminModule',
     canActivate: [AuthGuard]
   },
+  
   {
     path: '',
     component: LoginComponent,
@@ -19,7 +21,8 @@ const appRoute: Routes = [
   {
     path: 'login',
     component: LoginComponent
-  }
+  },
+  
 
 
 ];

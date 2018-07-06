@@ -5,7 +5,7 @@ import { AbstractControl, FormGroup, FormBuilder, Validators, FormControl } from
 import { UserModel } from './../../../../shared/model/user';
 import { Component, OnInit, Input, OnChanges, SimpleChanges, SimpleChange, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
-import { } from '@types/googlemaps';
+// import { } from '@types/googlemaps';
 import { ViewChild, ElementRef, NgZone, Output, EventEmitter } from '@angular/core';
 import { TypeaheadMatch } from 'ngx-bootstrap';
 declare var google: any;
@@ -113,7 +113,6 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
           console.log("Place Changed");
           this.ngZone.run(() => {
             let place: any = autocomplete.getPlace();
-
             if (place.geometry === undefined || place.geometry === null) {
               return;
             }

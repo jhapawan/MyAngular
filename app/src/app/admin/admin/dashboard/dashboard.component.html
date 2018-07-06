@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-aqua">
+        <i class="ion ion-ios-person-outline"></i>
+      </span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Profile Percentage</span>
+        <span class="info-box-number">{{calculateProfilePercentage()}}
+          <small>%</small>
+        </span>
+      </div>
+      <div class="vd_info pull-right" style="padding: 5px">
+        <a routerLink="/home/profile-edit/{{userSession.userId}}" class="btn vd_btn btn-xs vd_bg-yellow">
+          <i class="fa fa-pencil append-icon"></i> Update Profile</a>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+  <!-- /.col -->
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-red">
+        <i class="fa fa-google-plus"></i>
+      </span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Likes</span>
+        <span class="info-box-number">41,410</span>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+
+</div>
+
+<!-- /.row -->
+<!-- <div class="row">
+  <div class="col-sm-2">
+    <div class="input-group">
+      <span>
+        <h3>
+          <i class="fa fa-users"></i>
+          My Pack
+        </h3>
+      </span>
+    </div>
+  </div>
+</div> -->
+<div class="row">
+  <div class="col-sm-12">
+    <div class="topnav">
+      <span>
+        <h3>
+          <i class="fa fa-users"></i>
+          My Pack
+        </h3>
+      </span>
+
+      <input type="text" [(ngModel)]="searchValue" placeholder="Search Other Pack.">
+    </div>
+  </div>
+</div>
+<div class="row" *ngFor="let item of createRowRange();let row=index">
+  <div class="col-sm-4" *ngFor="let item of createColumnRange();let column=index"  [@someCoolAnimation]="'fadeIn'">
+    <app-profile-card [profileData]="filtredPack[column+(3*row)]" *ngIf="column+(3*row)<filtredPack.length"></app-profile-card>
+  </div>
+</div>

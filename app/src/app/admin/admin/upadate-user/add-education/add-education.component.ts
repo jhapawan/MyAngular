@@ -24,11 +24,17 @@ export class AddEducationComponent implements OnInit {
 
   @Input() userData: UserModel;
   @Output() getEducation = new EventEmitter();
+
+  yearRange: Array<any> = [];
   constructor(private fb: FormBuilder, private api: UserServiceService) { }
 
 
   ngOnInit() {
     this.createNewExeperience();
+    let year = new Date().getFullYear();
+    for (var i = 1; i < 50; i++) {
+      this.yearRange.push(year - i);
+    }
   }
   createNewExeperience(): any {
     this.addEducationForm = this.fb.group(

@@ -1,3 +1,4 @@
+import { RsaService } from './../shared/helper/rsaservice';
 import { DataCommunicateService } from './../services/data-communicate.service';
 import { Router } from '@angular/router';
 
@@ -17,7 +18,7 @@ import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/fo
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  userSocialLogin = { email: "", name: "", provider: "", image: "", id: "", password: "" }
+  userSocialLogin = { email: "", name: "", provider: "", facebookImage: "", facebookId: "", googleImage: "", googleId: "", password: "" }
 
   public loginpage: FormGroup;
   public submitted: boolean = false;
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit {
     private autherization: AuthenticateService, private loadSpinner: LoaderService
     , private router: Router,
     private fb: FormBuilder
-    , private dataService: DataCommunicateService
+    , private dataService: DataCommunicateService, private rsaService: RsaService
   ) {
     // this.toasterService.pop('success', 'Args Title', 'Args Body');
   }
@@ -48,7 +49,6 @@ export class LoginComponent implements OnInit {
     this.reTypePassword = this.loginpage.controls['reTypePassword'];
   }
   public socialSignIn(socialPlatform: string) {
-
     let socialPlatformProvider;
     if (socialPlatform == "facebook") {
       socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
@@ -60,20 +60,43 @@ export class LoginComponent implements OnInit {
         this.loadSpinner.display(true);
         this.userSocialLogin.email = userData.email;
         this.userSocialLogin.name = userData.name;
-        this.userSocialLogin.id = userData.id;
         this.userSocialLogin.provider = userData.provider;
-        this.userSocialLogin.image = userData.image;
+        if (socialPlatform == "facebook") {
+          this.userSocialLogin.facebookId = userData.id;
+          this.userSocialLogin.facebookImage = userData.image;
+        }
+        else if (socialPlatform == "google") {
+          socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+          this.userSocialLogin.googleId = userData.id;
+          this.userSocialLogin.googleImage = userData.image;
+        }
         this.autherization.doRegistration(this.userSocialLogin).subscribe(data => {
           if (data.status == "success") {
+
             this.userSesssion.access_token = data.token;
             this.userSesssion.name = data.name;
             this.userSesssion.email = data.email;
             this.userSesssion.userId = data.id;
-            this.userSesssion.image = data.image;
+
             this.userSesssion.cDate = data.cDate;
-            localStorage.setItem("session", JSON.stringify(this.userSesssion));
+            this.userSesssion.city = data.city;
+            this.userSesssion.state = data.state;
+            this.userSesssion.country = data.country;
+            this.userSesssion.phone = data.phone;
+            this.userSesssion.birthDate = data.birthDate;
+            this.userSesssion.pinCode = data.pinCode;
+            this.userSesssion.about = data.about;
+            this.userSesssion.profession = data.profession;
+            this.userSesssion.exeperience = data.exeperience;
+            this.userSesssion.skill = data.skill;
+            this.userSesssion.galary = data.galary;
+            this.userSesssion.currentProvider = socialPlatform;
+            this.userSesssion.socialId = userData.id;
+            this.userSesssion.image = this.userSesssion.currentProvider == 'google' ? data.googleImage : data.facebookImage;
+            localStorage.setItem("session", this.rsaService.encrypt(JSON.stringify(this.userSesssion)));
             this.loadSpinner.display(false);
-            window.open('/admin/add-user', '_self');
+            window.open('/home/dashboard', '_self');
+
           }
           else {
             console.log("Error");

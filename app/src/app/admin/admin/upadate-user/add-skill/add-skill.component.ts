@@ -26,8 +26,8 @@ export class AddSkillComponent implements OnInit {
     this.addSkill = this.fb.group(
       {
         'skill': [, Validators.compose([Validators.required])],
-        'proficiencyLevel': [, Validators.compose([Validators.required, Validators.max(100)])],
-        'version': [, Validators.compose([Validators.required])],
+        'proficiencyLevel': [, Validators.compose([Validators.required])],
+        'version': [, Validators.compose([])],
         'lastUsed': [, Validators.compose([])],
         'gid': [this.userData._id, Validators.compose([])],
       }
@@ -62,6 +62,8 @@ export class AddSkillComponent implements OnInit {
       }
     });
   }
-
+  changeProficiency(value) {
+    console.log(value);
+  }
 
 }

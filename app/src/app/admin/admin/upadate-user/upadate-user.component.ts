@@ -1,3 +1,4 @@
+import { RsaService } from './../../../shared/helper/rsaservice';
 import { UserModel } from './../../../shared/model/user';
 import { UserServiceService } from './../../../services/user/user-service.service';
 import { Token } from './../../../shared/usertoken';
@@ -22,7 +23,8 @@ import { Component, OnInit, trigger, state, transition, style, group, animate, C
 })
 export class UpadateUserComponent implements OnInit {
 
-  public userSession: Token = JSON.parse(localStorage.getItem("session"));
+  public userSession: Token = JSON.parse(this.rsa.decrypt(localStorage.getItem("session")));
+
   paramId: any;
   requestModeView: boolean = false;
   userData: UserModel = new UserModel();
@@ -32,11 +34,10 @@ export class UpadateUserComponent implements OnInit {
   loadEducation: boolean = false;
   changeDetectorRef: ChangeDetectorRef[] = [];
   editSkills: boolean = false;
-  constructor(private route: ActivatedRoute, private api: UserServiceService) {
+  constructor(private route: ActivatedRoute, private api: UserServiceService, private rsa: RsaService) {
     this.route.params.subscribe(params => { this.paramId = params.id; });
   }
   ngOnInit() {
-    console.log(this.userSession);
     if (this.paramId != this.userSession.userId) {
       //window.alert("Your are not authenticated user to access that page.");
     }
@@ -50,6 +51,9 @@ export class UpadateUserComponent implements OnInit {
     this.api.getUserById(this.paramId).subscribe(
       res => {
         this.userData = res.resultArr[0];
+        this.userData.image = this.userSession.currentProvider == 'google' ? this.userData.googleImage : this.userData.facebookImage;
+        this.updateSessionvalue(this.userData);
+
       },
       Error => { console.log(Error) }
     )
@@ -61,7 +65,6 @@ export class UpadateUserComponent implements OnInit {
   addExpOrEdu(sender) {
     this.isEditExpEdu = !this.isEditExpEdu;
     this.loadEducation = false;
-    console.log(sender);
     if (sender == 'exp') {
       this._EditExpEduText = "EXPERIENCE";
     } else { this._EditExpEduText = "EDUCATION"; this.loadEducation = true; }
@@ -71,7 +74,6 @@ export class UpadateUserComponent implements OnInit {
   updateProfile(value) {
     this.isEditAbout = !this.isEditAbout;
     this.getUserData();
-
   }
   updateExeperienc(value) {
     this.isEditExpEdu = !this.isEditExpEdu;
@@ -115,6 +117,22 @@ export class UpadateUserComponent implements OnInit {
   updateSkill(value) {
     this.editSkills = !this.editSkills;
     this.getUserData();
-    console.log(this.userData);
+
+  }
+  updateSessionvalue(obj: UserModel) {
+    this.userSession.lastName = obj.lastName
+    this.userSession.phone = obj.phone
+    this.userSession.birthDate = obj.birthDate
+    this.userSession.city = obj.city
+    this.userSession.country = obj.country
+    this.userSession.state = obj.state
+    this.userSession.pinCode = obj.pinCode
+    this.userSession.about = obj.about
+    this.userSession.profession = obj.profession
+    this.userSession.exeperience = obj.exeperience
+    this.userSession.education = obj.education
+    this.userSession.skill = obj.skill
+    this.userSession.galary = obj.galary
+    localStorage.setItem("session", this.rsa.encrypt(JSON.stringify(this.userSession)));
   }
 }

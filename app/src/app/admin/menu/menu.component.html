@@ -30,20 +30,20 @@
       <li class="active treeview menu-open">
         <a href="#">
           <i class="fa fa-dashboard"></i>
-          <span>Admin</span>
+          <span>home</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
           <li>
-            <a routerLink="/admin/dashboard" routerLinkActive="active">
+            <a routerLink="/home/dashboard" routerLinkActive="active">
               <i class="fa fa-circle-o"></i>Dashboard</a>
           </li>
-          <!-- <li class="active">
-            <a routerLink="/admin/user-type" routerLinkActive="active">
-              <i class="fa fa-circle-o"></i>User Type</a>
-          </li> -->
+          <li class="active">
+            <a routerLink="/home/add-skill-master" routerLinkActive="active">
+              <i class="fa fa-circle-o"></i>Add Master Skill</a>
+          </li>
         </ul>
       </li>
       <li class="treeview">
@@ -56,9 +56,9 @@
         </a>
         <ul class="treeview-menu">
           <li>
-            <a routerLink="/admin/profile-edit/{{userSession.userId}}" routerLinkActive="active">
+            <a routerLink="/home/profile-edit/{{userSession.userId}}" routerLinkActive="active">
               <i class="fa fa-circle-o"></i>Update Profile</a>
-          </li>          
+          </li>
         </ul>
       </li>
       <!-- <li>
@@ -294,7 +294,7 @@
         </ul>
       </li>
       <li>
-        <a href="https://adminlte.io/docs">
+        <a href="https://homelte.io/docs">
           <i class="fa fa-book"></i>
           <span>Documentation</span>
         </a>

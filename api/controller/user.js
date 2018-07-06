@@ -882,15 +882,12 @@ module.exports.addEducation = function (req, res) {
 function validateSkill(req) {
 	req.checkBody('skill', 'Skill Name cannot be blank.').notEmpty(); //server side validation
 	req.checkBody('proficiencyLevel', 'Profienciency cannot be blank.').notEmpty();
-	req.checkBody('version', 'Please mention used last version.').notEmpty();
 	return req.validationErrors();
 }
 module.exports.addSkill = function (req, res) {
-
 	var _id = new ObjectID(req.body.gid);
 	var isValidate = validateSkill(req);
 	if (isValidate) {
-
 		return res.json({
 			status: config.ERROR_STATUS,
 			msg: isValidate
@@ -916,7 +913,6 @@ module.exports.addSkill = function (req, res) {
 				skill.proficiencyLevel = req.body.proficiencyLevel;
 				skill.version = req.body.version;
 				skill.lastUsed = req.body.lastUsed;
-
 				if (data.skill) {
 					_skill = data.skill;
 					_skill.push(skill);
@@ -943,7 +939,6 @@ module.exports.addSkill = function (req, res) {
 									msg: "Updated Sucessfully."
 								});
 							}
-
 						}
 					)
 				} else {
@@ -1436,7 +1431,7 @@ module.exports.saveGalaryImage = function (req, res) {
 				fileName = file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1];
 			}
 			savedImage.push({
-				'imageSource': '/images/hotel/' + fileName
+				'imageSource': '/images/user/' + fileName
 			});
 			cb(null, fileName);
 		}
@@ -1481,3 +1476,69 @@ module.exports.saveGalaryImage = function (req, res) {
 		}
 	});
 }
+module.exports.getAllPack = function (req, res) {
+	console.log(req.decoded._id);
+	var query = {
+		"isactive": true,
+		"_id": {
+			$ne: new ObjectID(req.decoded._id)
+		}
+	};
+	var getfields = {
+		"name": 1,
+		"image": 1,
+		"city": 1,
+		"state": 1,
+		"country": 1,
+		"phone": 1,
+		"about": 1,
+		"profession": 1,
+		"exeperience": 1,
+		"education": 1,
+		"skill": 1,
+		"galary": 1,
+		"isactive": 1,
+		"facebookImage": 1,
+		"googleImage": 1,
+		"facebookId": 1,
+		"googleId": 1
+
+
+	};
+
+	db.user.find(query, getfields, function (err, result) {
+		if (err || !result) return res.json({
+			status: config.ERROR_STATUS
+		});
+		else {
+
+			if (result.length) {
+				let finalArr = [],
+					myRes = [];
+				result.forEach(function (y) {
+					if ((y.isactive && y.isactive !== '0'))
+						finalArr.push(y);
+				});
+				if (finalArr.length) {
+					sortBy(finalArr, {
+						prop: "cdt",
+						desc: true,
+						parser: function (item) {
+							//ignore case sensitive
+							return item;
+						}
+					});
+				}
+				return res.json({
+					status: config.SUCCESS_STATUS,
+					resultArr: finalArr
+				});
+			} else {
+				return res.json({
+					status: config.ERROR_STATUS,
+					msg: 'No data found'
+				});
+			}
+		}
+	});
+};

@@ -1,3 +1,5 @@
+import { RsaService } from './../../shared/helper/rsaservice';
+import { UserModel } from './../../shared/model/user';
 import { DataCommunicateService } from './../data-communicate.service';
 import { Token } from './../../shared/usertoken';
 import { appConfig } from './../../shared/config';
@@ -10,8 +12,8 @@ import "rxjs/add/operator/map"
 export class UserServiceService {
   private baseApiUrl = appConfig.apiUrl;
   private accessToken: Token;
-  constructor(private http: HttpClient, private dataService: DataCommunicateService) {
-    this.accessToken = JSON.parse(localStorage.getItem("session"));
+  constructor(private http: HttpClient, private dataService: DataCommunicateService, private rsa: RsaService) {
+    this.accessToken = JSON.parse(this.rsa.decrypt(localStorage.getItem("session")));
 
   }
   createAuthorizationHeader(headers: HttpHeaders) {
@@ -26,7 +28,6 @@ export class UserServiceService {
           'x-access-token': this.accessToken.access_token
         })
       };
-      console.log(httpOptions.headers);
       return this.http.get(url, httpOptions).map(res => res);
     }
   }
@@ -116,6 +117,16 @@ export class UserServiceService {
     };
     // return this.http.post(url, formdata, optionstest).map(res => res.json());
     return this.http.post(url, formdata, httpOptions).map(res => res);
+  }
+  geAllPack(): Observable<any> {
+    let url = this.baseApiUrl + "user/getallpack";
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'x-access-token': this.accessToken.access_token
+      })
+    };
+    return this.http.get(url, httpOptions).map(res => res);
   }
 
 }

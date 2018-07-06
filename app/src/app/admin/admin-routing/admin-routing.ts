@@ -1,26 +1,39 @@
+import { AddmasterskillComponent } from './../admin/addmasterskill/addmasterskill.component';
+import { AddSkillComponent } from './../admin/upadate-user/add-skill/add-skill.component';
+import { DashboardComponent } from './../admin/dashboard/dashboard.component';
 import { UpdateAboutComponent } from './../admin/upadate-user/update-about/update-about.component';
 import { UpadateUserComponent } from './../admin/upadate-user/upadate-user.component';
 import { UserTypeComponent } from './../user-type/user-type.component';
 import { AuthGuard } from './../../auth.guard';
 
 import { AdminComponent } from './../admin/admin.component';
-import { AddUserComponent } from './../admin/add-user/add-user.component';
+
 import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 const appRoute: Routes = [
     {
-        path: 'admin',
+        path: 'home',
         data: {
-            breadcrumb: "Admin"
+            breadcrumb: "Home"
         },
         component: AdminComponent,
         canActivate: [AuthGuard],
         children: [
             {
                 path: '',
-                redirectTo: 'dashboard1',
+                component: DashboardComponent,
+                pathMatch: 'full',
+                data: {
+                    breadcrumb: "DashBoard"
+                }
+
+            },
+
+            {
+                path: 'dashboard',
+                component: DashboardComponent,
                 pathMatch: 'full',
                 data: {
                     breadcrumb: "DashBoard"
@@ -28,10 +41,10 @@ const appRoute: Routes = [
 
             },
             {
-                path: 'add-user',
-                component: AddUserComponent,
+                path: 'add-skill-master',
+                component: AddmasterskillComponent,
                 data: {
-                    breadcrumb: "Add User"
+                    breadcrumb: "Add Skill"
                 }
             },
             {

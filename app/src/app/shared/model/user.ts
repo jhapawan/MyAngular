@@ -20,4 +20,9 @@ export class UserModel {
     exeperience: any = [];
     education: any = [];
     skill: any = [];
+    galary: any = [];
+    facebookId: string;
+    facebookImage: string;
+    googleId: string;
+    googleImage: string;
 }
