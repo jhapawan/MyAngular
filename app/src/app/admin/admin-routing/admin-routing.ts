@@ -1,3 +1,4 @@
+import { AddBlogComponent } from './../add-blog/add-blog.component';
 import { AddmasterskillComponent } from './../admin/addmasterskill/addmasterskill.component';
 import { AddSkillComponent } from './../admin/upadate-user/add-skill/add-skill.component';
 import { DashboardComponent } from './../admin/dashboard/dashboard.component';
@@ -41,10 +42,10 @@ const appRoute: Routes = [
 
             },
             {
-                path: 'add-skill-master',
-                component: AddmasterskillComponent,
+                path: 'add-blog',
+                component: AddBlogComponent,
                 data: {
-                    breadcrumb: "Add Skill"
+                    breadcrumb: "Add Blog"
                 }
             },
             {

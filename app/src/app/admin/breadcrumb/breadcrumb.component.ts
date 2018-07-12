@@ -21,7 +21,6 @@ export class BreadcrumbComponent implements OnInit {
 
     //subscribe to the NavigationEnd event
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
-
       //set breadcrumbs
       let root: ActivatedRoute = this.activatedRoute.root;
       this.breadCrubms = this.getBreadcrumbs(root);
@@ -29,6 +28,7 @@ export class BreadcrumbComponent implements OnInit {
     });
   }
   private getBreadcrumbs(route: ActivatedRoute, url: string = "", breadcrumbs: IBreadCrumb[] = []): IBreadCrumb[] {
+    
     const ROUTE_DATA_BREADCRUMB: string = "breadcrumb";
 
     //get the child routes

@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="box box-info">
+      <div class="box-header">
+        <h3 class="box-title">Add New Post
+
+        </h3>
+      </div>
+      <div class="box-body pad">
+        <div class="vd_info tr pull-right">
+          <a (click)="onPostBlog()" class="btn vd_btn btn-xs vd_bg-yellow">
+            <i class="fa fa-save append-icon"></i> Post Story </a>
+        </div>
+
+      </div>
+      <div class="box-body">
+        <form [formGroup]="frmblog">
+          <div class="form-group has-feedback" [ngClass]="{'has-error': (!title.valid && title.touched), 'has-success': (title.valid && title.touched)}">
+            <label>Title:</label>
+            <input class="form-control" type="text" placeholder="Title. e.g. " [formControl]="title">
+          </div>
+          <div class="form-group has-feedback" [ngClass]="{'has-error': (!tag.valid && tag.touched), 'has-success': (tag.valid && tag.touched)}">
+            <label>Tag:</label>
+            <!-- <input class="form-control" type="text" placeholder="tag" [formControl]="tag"> -->
+            <ng-selectize [formControl]="tag" [options]="requiredDropdownOptions" [hasOptionsPlaceholder]="'Select or Type the tag'" [config]="config"></ng-selectize>
+          </div>
+          <div class="form-group has-feedback" [ngClass]="{'has-error': (!description.valid && description.touched), 'has-success': (description.valid && description.touched)}">
+            <label>About:</label>
+            <ckeditor [config]="{toolbar : 'basic',uiColor: '#ebebeb'}" [readonly]="false" [formControl]="description" (change)="onChange($event)"
+              (editorChange)="onEditorChange($event)" (ready)="onReady($event)" (focus)="onFocus($event)" (blur)="onBlur($event)"
+              (contentDom)="onContentDom($event)" (fileUploadRequest)="onFileUploadRequest($event)" (fileUploadResponse)="onFileUploadResponse($event)"
+              (paste)="onPaste($event)" (drop)="onDrop($event)" debounce="500">
+            </ckeditor>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

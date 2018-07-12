@@ -64,6 +64,7 @@ app.post("/api/register", function (req, res) {
 app.get("/api/validatetoken", function (req, res) {
   auth.validatetoken(req, res);
 })
+var publicRoute = require('./routes/public-route.js')(app);
 
 /*Validate Token*/
 app.use(function (req, res, next) {
@@ -101,11 +102,14 @@ app.use(function (req, res, next) {
 
 
 app.use(express.static(__dirname + '/public'));
-
 var routes = require('./routes/routes.js')(app);
 var packageRoute = require('./routes/package-route.js')(app);
 var product = require('./routes/cms-route.js')(app);
 var product = require('./routes/common-route.js')(app);
+var blog = require('./routes/blog-route.js')(app);
+
+
+
 
 //apiRoutes.use(routes);
 

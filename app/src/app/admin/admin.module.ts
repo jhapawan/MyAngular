@@ -1,5 +1,5 @@
 import { SearchFilterPipe } from './../shared/search-filter.pipe';
-
+import { NgSelectizeModule } from 'ng-selectize';
 import { OrderBy } from './../services/shared/orderby';
 import { CommonService } from './../services/shared/common.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -33,20 +33,22 @@ import { ProfileCardComponent } from './admin/profile-card/profile-card.componen
 import { SocialSignupModule } from '../social-signup/social-signup.module';
 import { AddSkillComponent } from './admin/upadate-user/add-skill/add-skill.component';
 import { AddmasterskillComponent } from './admin/addmasterskill/addmasterskill.component';
-
-
+import { AddBlogComponent } from './add-blog/add-blog.component';
+import { CKEditorModule } from 'ng2-ckeditor';
+import { ServicesModule } from '../services/services.module';
 @NgModule({
   imports: [
     CommonModule, RouterModule, AdminRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule, BsDatepickerModule.forRoot(),
+    CKEditorModule,
     TypeaheadModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyChuVjyJNiDLZjU-S59au7YfvQiPnASVQ0',
       libraries: ['places'],
-    }), SocialSignupModule
+    }), SocialSignupModule, NgSelectizeModule, ServicesModule
   ],
   declarations: [AdminComponent, HeaderComponent, FooterComponent, SettingComponent, MenuComponent,
-     UserTypeComponent, UpadateUserComponent, UpdateAboutComponent, AddExeperienceComponent, AddEducationComponent, OrderBy, AddSkillComponent, BreadcrumbComponent,
-    UserGallaryComponent, LoadGalaryComponent, DashboardComponent, ProfileCardComponent, SearchFilterPipe, AddmasterskillComponent]
+    UserTypeComponent, UpadateUserComponent, UpdateAboutComponent, AddExeperienceComponent, AddEducationComponent, OrderBy, AddSkillComponent, BreadcrumbComponent,
+    UserGallaryComponent, LoadGalaryComponent, DashboardComponent, ProfileCardComponent, SearchFilterPipe, AddmasterskillComponent, AddBlogComponent]
   , providers: [AuthGuard, UserServiceService, DataCommunicateService, CommonService]
 })
 export class AdminModule { }

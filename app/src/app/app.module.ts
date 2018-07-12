@@ -10,6 +10,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PublicModule } from './public/public.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule, BrowserAnimationsModule,
     LoginModule, AppRoutingModule, SocialSignupModule,
-    ServicesModule, HttpClientModule, AdminModule
+    ServicesModule, HttpClientModule, AdminModule,PublicModule
   ],
 
   providers: [AuthGuard],
