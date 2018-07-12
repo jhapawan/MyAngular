@@ -17,27 +17,21 @@ const routes: Routes = [
         path: '',
         component: HomeComponent,
         pathMatch: 'full',
-        data: {
-          breadcrumb: "Home"
-        }
+        data: { title: 'Home' }
 
       },
       {
         path: 'about',
         component: AboutComponent,
         pathMatch: 'full',
-        data: {
-          breadcrumb: "About"
-        }
+        data: { title: 'about' }
 
       },
       {
         path: 'contact',
         component: ContactComponent,
         pathMatch: 'full',
-        data: {
-          breadcrumb: "About"
-        }
+        data: { title: 'contact' }
 
       }
     ]
