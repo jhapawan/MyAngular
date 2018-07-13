@@ -109,8 +109,6 @@ var product = require('./routes/common-route.js')(app);
 var blog = require('./routes/blog-route.js')(app);
 
 
-
-
 //apiRoutes.use(routes);
 
 app.use((req, res, next) => {

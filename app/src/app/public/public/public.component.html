@@ -39,12 +39,12 @@
   </div>
   <!-- /.container -->
 </nav>
-<header class="intro-header" style="background-image: url('assets/public/img/home-bg.jpg')">
+<header class="intro-header"  [@animRoutes]="getPage(appOutlet)" [ngStyle]="{'background-image':'url(' + bannerImage + ')'}">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="site-heading">
-          <h1>Contribute Skill</h1>
+          <h1>ASS</h1>
           <hr class="small">
           <span class="subheading">It takes a lot of people to make a winning team. Everybody's contribution is important.
           </span>
@@ -53,9 +53,10 @@
     </div>
   </div>
 </header>
-<div class="container">
-  <router-outlet></router-outlet>
+<div class="container"  [@animRoutes]="getPage(appOutlet)">
+  <router-outlet #appOutlet="outlet"></router-outlet>
 </div>
+
 <!-- Page Header -->
 <!-- Set your background image for this header on the line below. -->
 

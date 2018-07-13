@@ -8,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  blog: any = [];
   constructor(private publicApi: PublicService) { }
   ngOnInit() {
     this.publicApi.getAllBlog().subscribe(res => {
-      console.log(res);
+      this.blog = res.data;
     },
       error => { console.log(error) })
   }

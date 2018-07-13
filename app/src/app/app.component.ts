@@ -18,7 +18,6 @@ export class AppComponent {
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         var title = this.getTitle(router.routerState, router.routerState.root).join('-');
-        console.log('pawan' + title);
         this.title = title;
         if (this.pageNames.filter(x => x == title).length > 0) { this.document.getElementById('theme').setAttribute('href', 'assets/public/css/clean-blog.min.css'); }
         else { this.document.getElementById('theme').setAttribute('href', ''); }
