@@ -23,27 +23,16 @@ module.exports.login = function (req, res) {
             //     "isactive": "Enable"
             // }]
         };
-
         //find user and generate Token for further validation
-        db.user.findOne(query, {
-            "email": 1,
-            "email": 1,
-            "selectUserRole": 1,
-            "password": 1,
-            "cperson": 1,
-            "role": 1,
-            "permission": 1,
-            "cdt": 1,
-            "filename": 1
-
-        }, function (err, data) {
-
+        db.user.findOne(query, function (err, data, next) {
             if (err) console.log("Error" + err);
             //check if user exists
             if (!data) {
+                console.log("asd");
                 res.json({
                     status: config.ERROR_STATUS,
-                    msg: 'Authentication failed. User not found.'
+                    msg: "The email address or phone number that you've entered doesn't match any account. Sign up for an account."
+
                 });
             } else {
                 if (bcrypt.compareSync(pwd, data['password'])) {
@@ -54,13 +43,16 @@ module.exports.login = function (req, res) {
                     return res.json({
                         status: config.SUCCESS_STATUS,
                         user: data.email,
-                        name: data.fname,
+                        firstName: data.firstName,
+                        lastName: data.lastName,
+                        name: data.firstName + " " + data.lastName,
                         id: data._id,
-                        permission: data.permission,
                         token: token,
-                        role: data.role,
                         cDate: data.cdt,
-                        profilePic: data.filename
+                        email: data.email,
+                        birthDate: data.birthDate
+                        , profilePic: data.filename,
+
                     });
                 } else {
                     res.json({
@@ -70,9 +62,21 @@ module.exports.login = function (req, res) {
                 }
             }
         });
+
     } catch (error) {
         console.log(error);
     }
+}
+
+function isUserValidate(req) {
+    req.checkBody('firstName', 'First name cannot be blank.').notEmpty(); //server side validation
+    req.checkBody('email', 'Invalid Email').isEmail();
+    //req.checkBody('pwd', '6 to 20 characters required').len(6, 20);
+    req.checkBody('lastName', 'Last Name cannot be blank.').notEmpty();
+    req.checkBody('password', 'Password cannot be blank.').notEmpty();
+    req.checkBody('birthDate', 'Date of birth is not valid date.').isDate();
+    //req.checkBody('selectStatus', 'must enter').notEmpty();
+    return req.validationErrors();
 }
 module.exports.register = function (req, res, next) {
     if (req.body.provider) {
@@ -85,44 +89,55 @@ module.exports.register = function (req, res, next) {
         }
     };
     try {
-        db.user.findOne(query, function (err, data, next) {
-            if (err) {
-                res.json({
-                    status: config.ERROR_STATUS,
-                    msg: 'Error occured please contact to administrator.'
-                });
-            } else if (data) {
-                res.json({
-                    status: config.ERROR_STATUS,
-                    msg: 'Login Name ' + req.body.email + ' already in our database.'
-                });
-            } else {
-                try {
-                    console.log(req.body.password);
-                    let password = getEncryptedPwd(req.body.password);
-                    req.body.password = password;
-                    db.user.save(req.body, function (err, data) {
-                        if (err || !data) {
-                            return res.json({
-                                status: config.ERROR_STATUS,
-                                msg: err
-                            });
-                        } else if (data) {
-                            mailer.SendEMail(req.body.email, "User Registration | pawanjha.com", "Thank you, you have been now register with our site , please use below link to activate your account.", "");
-                            return res.json({
-                                status: config.SUCCESS_STATUS,
-                                msg: "Registration sucessfully, Email sent to your email id " + req.body.email + ', please verify'
-                            });
-                        }
-                    })
-                } catch (error) {
+        var isValidate = isUserValidate(req);
+        if (isValidate) {
+            return res.json({
+                status: config.ERROR_STATUS,
+                msg: isValidate
+            });
+        } else {
+            db.user.findOne(query, function (err, data, next) {
+                if (err) {
                     res.json({
                         status: config.ERROR_STATUS,
                         msg: 'Error occured please contact to administrator.'
                     });
+                } else if (data) {
+                    res.json({
+                        status: config.ERROR_STATUS,
+                        msg: 'Login Name ' + req.body.email + ' already in our database.'
+                    });
+                } else {
+                    try {
+                        console.log(req.body.password);
+                        let password = getEncryptedPwd(req.body.password);
+                        req.body.password = password;
+                        req.body.cdt = new Date();
+                        req.body.isActive = false;
+                        db.user.save(req.body, function (err, data) {
+                            if (err || !data) {
+                                return res.json({
+                                    status: config.ERROR_STATUS,
+                                    msg: err
+                                });
+                            } else if (data) {
+                                mailer.SendEMail(req.body.email, "User verification - Contribute Skills !",
+                                    "Welcome " + req.body.firstName + "</br> Please click the below link to verify your User login!", "");
+                                return res.json({
+                                    status: config.SUCCESS_STATUS,
+                                    msg: "Thank you " + req.body.firstName + " You have been successfully registered. We have sent you an email . please verify!"
+                                });
+                            }
+                        })
+                    } catch (error) {
+                        res.json({
+                            status: config.ERROR_STATUS,
+                            msg: 'Error occured please contact to administrator.'
+                        });
+                    }
                 }
-            }
-        })
+            })
+        }
     } catch (error) {
         res.json({
             status: config.ERROR_STATUS,
@@ -134,7 +149,6 @@ module.exports.register = function (req, res, next) {
         return bcrypt.hashSync(pwd);
     }
 }
-
 module.exports.validatetoken = function (req, res) {
     try {
         let decoded = jwt.verify(req.query.token, apiSecret);

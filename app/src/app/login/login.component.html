@@ -30,7 +30,7 @@
   </div>
 </nav> -->
 
-<div id="login-box">
+<!-- <div id="login-box">
 
   <div class="left">
     <h1>Sign up</h1>
@@ -70,4 +70,121 @@
   <div class="col-sm-12">
     <span class="error">{{errorMessage}}</span>
   </div>
-</div>
+</div> -->
+<!-- 
+
+'Golazo' App Login Page Concept utilizing Velocity.js & SVG animation techniques.
+
+Inspirations:
++Anton Aheichanka - https://dribbble.com/shots/1945593-Login-Home-Screen?list=users&offset=4
++Nicolay Talanov - https://codepen.io/suez/pen/dPqxoM
+
+-->
+
+<header>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-5">
+        <div class="logo">Contribute Skills</div>
+      </div>
+      <div class="col-sm-7 hidden-xs">
+        <div class="row">
+          <form [formGroup]="login">
+            <div class="col-sm-5">
+              <div class="form-group has-feedback" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
+                <input type="text" [formControl]="email" autocomplete="off" class="form-control" placeholder="Email Address">
+                <div class="login-bottom-text checkbox hidden-sm">
+                  <label>
+                    <input type="checkbox" id=""> Keep me sign in
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <div class="form-group has-feedback" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+                <input type="password" autocomplete="off" [formControl]="password" class="form-control" placeholder="Password">
+                <div class="login-bottom-text hidden-sm"> Forgot your password? </div>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <input type="button" (click)="appLogin()" value="login" class="btn btn-default btn-header-login">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<article class="container">
+
+  <div class="row">
+    <div class="col-sm-8">
+
+
+      <div class="login-main">
+
+        <h4>
+          <i class=""></i> Contribute skill(s) help you to elaborate your skill to world.</h4>
+        <span></span>
+
+        <!-- <h4>
+          <i class="fa fa-money"></i> 100% fully responsive </h4>
+        <span>Another description text about the template goes here</span>
+
+        <h4>
+          <i class="fa fa-mobile-phone"></i> Competible with all browers and mobile devices</h4>
+        <span>Yet another sample description text can be placed in one line</span>
+
+        <h4>
+          <i class="fa fa-trophy"></i> Easy to use and custmize with mobile friendly and responsive</h4>
+        <span>Your last description text about your startup or business</span> -->
+      </div>
+
+    </div>
+    <div class="col-sm-4">
+      <div class="">
+
+        <h3>
+          <i class="fa fa-shield"></i> Register now</h3>
+        <hr>
+        <app-sigup></app-sigup>
+
+      </div>
+    </div>
+  </div>
+
+</article>
+
+<footer class="container">
+  <!-- <hr>
+  <div class="footer-options">
+    <ul>
+      <li>
+        <a href="#">Mobile</li>
+      <li>
+        <a href="#">Find Friends</li>
+      <li>
+        <a href="#">Badges</li>
+      <li>
+        <a href="#">People</li>
+      <li>
+        <a href="#">Pages</li>
+      <li>
+        <a href="#">Places</a>
+      </li>
+      <li>
+        <a href="#">Games</a>
+      </li>
+      <li>
+        <a href="#">Locations</a>
+      </li>
+      <li>
+        <a href="#">About</a>
+      </li>
+    </ul>
+  </div>
+  <div style="clear:both"></div>
+  <small class="copyrights"> © Copyrights reserved 2014</small> -->
+</footer>

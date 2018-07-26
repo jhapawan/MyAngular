@@ -1,0 +1,81 @@
+<form [formGroup]="signUp">
+  <div class="alert alert-danger" *ngIf="errorMessage">
+    <strong>Error!</strong>{{errorMessage}}
+  </div>
+  <div class="alert alert-success" *ngIf="successMessage">
+    <strong>Success!</strong>{{successMessage}}
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!firstName.valid && firstName.touched), 'has-success': (firstName.valid && firstName.touched)}">
+        <label class="control-label" for="">Name</label>
+        <input type="text" class="form-control" [formControl]="firstName" placeholder="Name">
+
+        <span class="help-block" *ngIf="!firstName.valid &&  firstName.touched">
+          <p>Name cannot be blank</p>
+        </span>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!lastName.valid && lastName.touched), 'has-success': (lastName.valid && lastName.touched)}">
+        <label class="control-label" for="">Surname</label>
+        <input type="text" class="form-control" [formControl]="lastName" placeholder="Surname">
+        <!-- <span class="glyphicon glyphicon-remove form-control-feedback"></span> -->
+        <span class="help-block" *ngIf="!lastName.valid &&  lastName.touched">
+          <p>Surname cannot be blank.</p>
+        </span>
+        <!-- <span *ngIf="!lastName.valid &&  lastName.touched" class="error text-danger">SurName is not valid.</span> -->
+
+      </div>
+    </div>
+  </div>
+  <div class="form-group has-feedback" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
+    <label class="control-label" for="">Email Address</label>
+    <input type="text" class="form-control" [formControl]="email" placeholder="E-mail">
+    <!-- <div class="bar" translate *ngIf="!email.valid &&  email.touched">
+        Email is not valid.
+      </div> -->
+    <span class="help-block" *ngIf="!email.valid &&  email.touched">
+      <p>Please enter valid email address.</p>
+    </span>
+  </div>
+
+  <div class="form-group has-feedback" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+    <label class="control-label" for="">Password</label>
+    <input type="password" class="form-control" [formControl]="password" placeholder="Password">
+    <span class="help-block" *ngIf="!password.valid &&  password.touched">
+      <p>Password mus be minimum 5 digit long.</p>
+    </span>
+  </div>
+  <div class="form-group has-feedback" [ngClass]="{'has-error': (!reTypePassword.valid && reTypePassword.touched), 'has-success': (reTypePassword.valid && reTypePassword.touched)}">
+    <label class="control-label" for="">Repeat Password</label>
+    <input type="password" class="form-control" [formControl]="reTypePassword" placeholder="Retype Password">
+    <span class="help-block" *ngIf="!reTypePassword.valid &&  reTypePassword.touched && reTypePassword.value!=password.value">
+      <p>Password and confirm password does not matched..</p>
+    </span>
+    <span class="help-block" *ngIf="reTypePassword?.errors">
+      Password doesn't match
+    </span>
+  </div>
+  <!-- <h6 class="mt-3">FormGroup Model (
+      <code>loginpage.value</code>)</h6>
+    <div>
+      <pre><code>{{ loginpage?.errors | json }}</code></pre>
+    </div> -->
+  <div class="">
+
+    <div class="form-group has-feedback" [ngClass]="{'has-error': (!birthDate.valid && birthDate.touched), 'has-success': (birthDate.valid && birthDate.touched)}">
+      <label class="control-label" for="">Birthday</label>
+      <input class="form-control" type="text" bsDatepicker placement="top" placeholder="End Date" [formControl]="birthDate">
+    </div>
+  </div>
+
+  <small>
+    By clicking Sign Up, you agree to our Terms and that you have read our Data Use Policy, including our Cookie Use.
+  </small>
+  <div style="height:10px;"></div>
+  <div class="form-group">
+    <label class="control-label" for=""></label>
+    <input type="submit" (click)="register()" value="Sign Up" class="btn btn-primary">
+  </div>
+</form>

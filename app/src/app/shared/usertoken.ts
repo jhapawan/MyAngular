@@ -5,7 +5,6 @@ export class Token {
     public access_token: string;
     public token_type: string;
     public userName: string;
-
     public userId: string;
     public name: string;
     public email: string;
@@ -29,4 +28,6 @@ export class Token {
     public galary: any = [];
     public socialId: string;
     public currentProvider: string;
+    public firstName: string;
+
 }

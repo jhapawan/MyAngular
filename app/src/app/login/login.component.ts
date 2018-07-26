@@ -1,3 +1,4 @@
+
 import { RsaService } from './../shared/helper/rsaservice';
 import { DataCommunicateService } from './../services/data-communicate.service';
 import { Router } from '@angular/router';
@@ -10,7 +11,8 @@ import { FacebookLoginProvider } from 'angular5-social-login';
 import { GoogleLoginProvider } from 'angular5-social-login';
 
 import { Token } from '../shared/usertoken';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, AbstractControl, FormBuilder, Validators, FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-login',
@@ -19,34 +21,29 @@ import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/fo
 })
 export class LoginComponent implements OnInit {
   userSocialLogin = { email: "", name: "", provider: "", facebookImage: "", facebookId: "", googleImage: "", googleId: "", password: "" }
-
-  public loginpage: FormGroup;
-  public submitted: boolean = false;
-
-  /*Declare Form Object */
-  public email: AbstractControl;
-  public password: AbstractControl;
-  public reTypePassword: AbstractControl;
+  public login: FormGroup;
   public errorMessage: string = "";
   private userSesssion = new Token();
-  public _retypePassword: string;
+
+  public email: AbstractControl;
+  public password: AbstractControl;
+
+  // public _retypePassword: string;
   constructor(private socialAuthService: AuthService,
     private autherization: AuthenticateService, private loadSpinner: LoaderService
     , private router: Router,
     private fb: FormBuilder
     , private dataService: DataCommunicateService, private rsaService: RsaService
   ) {
-    // this.toasterService.pop('success', 'Args Title', 'Args Body');
+
   }
   ngOnInit() {
-    this.loginpage = this.fb.group({
-      'email': ['', Validators.compose([Validators.email, Validators.minLength(4)])],
-      'password': ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-      'reTypePassword': ['', Validators.compose([Validators.required, Validators.minLength(5)])]
+    this.login = this.fb.group({
+      'email': ['', Validators.compose([Validators.email])],
+      'password': ['', Validators.compose([Validators.required, Validators.minLength(5)])]
     });
-    this.password = this.loginpage.controls['password'];
-    this.email = this.loginpage.controls['email'];
-    this.reTypePassword = this.loginpage.controls['reTypePassword'];
+    this.password = this.login.controls['password'];
+    this.email = this.login.controls['email'];
   }
   public socialSignIn(socialPlatform: string) {
     let socialPlatformProvider;
@@ -107,19 +104,65 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-  public register() {
-    this.loadSpinner.display(true);
-    this.userSocialLogin.email = this.email.value;
-    this.userSocialLogin.password = this.password.value;
+  // public register() {
+  //   this.loadSpinner.display(true);
+  //   this.userSocialLogin.email = this.email.value;
+  //   this.userSocialLogin.password = this.password.value;
 
-    this.autherization.doRegistration(this.userSocialLogin).subscribe(data => {
-      if (data.status == "success") {
-        this.loadSpinner.display(false);
+  //   this.autherization.doRegistration(this.userSocialLogin).subscribe(data => {
+  //     if (data.status == "success") {
+  //       this.loadSpinner.display(false);
+  //     }
+  //     else {
+  //       this.errorMessage = data.msg;
+  //       this.loadSpinner.display(false);
+  //     }
+  //   });
+  // }
+
+  appLogin() {
+    this.validateAllFormFields(this.login);
+    if (this.login.valid) {
+      this.autherization.login(this.login.value).subscribe(data => {
+        if (data.status == "success") {
+          this.userSesssion.access_token = data.token;
+          this.userSesssion.name = data.f;
+          this.userSesssion.email = data.email;
+          this.userSesssion.userId = data.id;
+          this.userSesssion.cDate = data.cDate;
+          this.userSesssion.city = data.city;
+          this.userSesssion.state = data.state;
+          this.userSesssion.country = data.country;
+          this.userSesssion.phone = data.phone;
+          this.userSesssion.birthDate = data.birthDate;
+          this.userSesssion.pinCode = data.pinCode;
+          this.userSesssion.about = data.about;
+          this.userSesssion.profession = data.profession;
+          this.userSesssion.exeperience = data.exeperience;
+          this.userSesssion.skill = data.skill;
+          this.userSesssion.galary = data.galary;
+          localStorage.setItem("session", this.rsaService.encrypt(JSON.stringify(this.userSesssion)));
+          this.loadSpinner.display(false);
+          window.open('/home/dashboard', '_self');
+        }
+        else {
+          console.log("Error");
+          this.loadSpinner.display(false);
+        }
       }
-      else {
-        this.errorMessage = data.msg;
-        this.loadSpinner.display(false);
+        , error => { console.log("Error"); }
+      )
+    }
+  }
+  validateAllFormFields(formGroup: FormGroup) {         //{1}
+    Object.keys(formGroup.controls).forEach(field => {  //{2}
+      const control = formGroup.get(field);             //{3}
+      if (control instanceof FormControl) {             //{4}
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {        //{5}
+        this.validateAllFormFields(control);            //{6}
       }
     });
   }
 }
+

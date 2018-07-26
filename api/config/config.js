@@ -18,10 +18,10 @@ config.mongodb.databaseName = process.env.MONGODB_NAME || 'holiday-bookers';
 config.http.errorStatus = 'error';
 config.http.sucessStatus = 'success';
 config.ERROR_STATUS = 'error';
-config.SUCCESS_STATUS='success';
+config.SUCCESS_STATUS = 'success';
 
 config.constantValue.apiSecret = "MyApp";
-config.email.accountFrom = "pawanjha.delhi@gmail.com";
-config.email.accountPassword = "Amal@1988";
+config.email.accountFrom = "contributeskill@gmail.com";
+config.email.accountPassword = "May@1988";
 
 module.exports = config;

@@ -24,4 +24,12 @@ export class AuthenticateService {
       return this.http.post(url, formData, httpOptions).map(res => res);
     }
   }
+  login(formData: any): Observable<any> {
+    {
+      let url = this.baseApiUrl + "login";
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+      // headers.append('x-access-token', this.accessToken.access_token);      
+      return this.http.post(url, formData, httpOptions).map(res => res);
+    }
+  }
 }

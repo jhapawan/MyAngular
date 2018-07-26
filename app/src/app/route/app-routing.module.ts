@@ -21,7 +21,8 @@ const appRoute: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    data: { title: 'Contribute Skill - Login' }
   },
 
 
