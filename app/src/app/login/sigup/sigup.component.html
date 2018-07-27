@@ -47,16 +47,6 @@
       <p>Password mus be minimum 5 digit long.</p>
     </span>
   </div>
-  <div class="form-group has-feedback" [ngClass]="{'has-error': (!reTypePassword.valid && reTypePassword.touched), 'has-success': (reTypePassword.valid && reTypePassword.touched)}">
-    <label class="control-label" for="">Repeat Password</label>
-    <input type="password" class="form-control" [formControl]="reTypePassword" placeholder="Retype Password">
-    <span class="help-block" *ngIf="!reTypePassword.valid &&  reTypePassword.touched && reTypePassword.value!=password.value">
-      <p>Password and confirm password does not matched..</p>
-    </span>
-    <span class="help-block" *ngIf="reTypePassword?.errors">
-      Password doesn't match
-    </span>
-  </div>
   <!-- <h6 class="mt-3">FormGroup Model (
       <code>loginpage.value</code>)</h6>
     <div>
@@ -69,13 +59,41 @@
       <input class="form-control" type="text" bsDatepicker placement="top" placeholder="End Date" [formControl]="birthDate">
     </div>
   </div>
+  <div class="form-group has-feedback" [ngClass]="{'has-error': (!gender.valid && gender.touched), 'has-success': (gender.valid && gender.touched)}">
+    <div class="col-sm-4">
+      <div class="checkbox checkbox-inline">
+        <input type="radio" formControlName="gender" value="Female">
+        <strong>Female</strong>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="checkbox checkbox-inline">
+        <input type="radio" formControlName="gender" value="Male">
+        <strong>Male</strong>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="checkbox checkbox-inline">
+        <input type="radio" formControlName="gender" value="other">
+        <strong>Other(s)</strong>
+      </div>
 
-  <small>
-    By clicking Sign Up, you agree to our Terms and that you have read our Data Use Policy, including our Cookie Use.
-  </small>
+    </div>
+  </div>
+  <div style="height:10px;"></div>
+  <div class="form-group">
+    <small>
+      By clicking Sign Up, you agree to our Terms and that you have read our Data Use Policy, including our Cookie Use.
+    </small>
+  </div>
   <div style="height:10px;"></div>
   <div class="form-group">
     <label class="control-label" for=""></label>
     <input type="submit" (click)="register()" value="Sign Up" class="btn btn-primary">
   </div>
+  <!-- <h6 class="mt-3">FormGroup Model (
+    <code>signUp.value</code>)</h6>
+  <div>
+    <pre><code>{{ signUp?.value | json }}</code></pre>
+  </div> -->
 </form>

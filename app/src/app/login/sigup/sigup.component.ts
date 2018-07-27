@@ -20,7 +20,7 @@ export class SigupComponent implements OnInit {
   /*Declare Form Object */
   public email: AbstractControl;
   public password: AbstractControl;
-  public reTypePassword: AbstractControl;
+  public gender: AbstractControl;
   public firstName: AbstractControl;
   public lastName: AbstractControl;
   public birthDate: AbstractControl;
@@ -38,13 +38,13 @@ export class SigupComponent implements OnInit {
       'lastName': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
       'email': ['', Validators.compose([Validators.email])],
       'password': ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-      'reTypePassword': ['', Validators.compose([Validators.required, Validators.minLength(5)])],
+      'gender': [, Validators.compose([Validators.required])],
       'birthDate': ['', Validators.compose([Validators.required])]
 
-    }, this.pwdMatchValidator);
+    });
     this.password = this.signUp.controls['password'];
     this.email = this.signUp.controls['email'];
-    this.reTypePassword = this.signUp.controls['reTypePassword'];
+    this.gender = this.signUp.controls['gender'];
     this.firstName = this.signUp.controls['firstName'];
     this.lastName = this.signUp.controls['lastName'];
     this.birthDate = this.signUp.controls['birthDate'];

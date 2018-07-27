@@ -50,8 +50,9 @@ module.exports.login = function (req, res) {
                         token: token,
                         cDate: data.cdt,
                         email: data.email,
-                        birthDate: data.birthDate
-                        , profilePic: data.filename,
+                        birthDate: data.birthDate,
+                        profilePic: data.filename,
+                        skill: data.skill
 
                     });
                 } else {

@@ -24,20 +24,19 @@ const appRoute: Routes = [
         children: [
             {
                 path: '',
-                component: DashboardComponent,
-                pathMatch: 'full',
+                component: DashboardComponent,               
                 data: {
-                    breadcrumb: "DashBoard"
+                    breadcrumb: "DashBoard",
+                    title: 'Contribute Skill - User(s) Feeds'
                 }
-
             },
-
             {
                 path: 'dashboard',
                 component: DashboardComponent,
                 pathMatch: 'full',
                 data: {
-                    breadcrumb: "DashBoard"
+                    breadcrumb: "DashBoard",
+                    title: 'Contribute Skill - User(s) Feeds'
                 }
 
             },

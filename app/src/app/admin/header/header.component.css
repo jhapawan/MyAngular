@@ -1,0 +1,14 @@
+.navbar {
+  overflow: hidden;
+  background-image: url(../../../assets/images/headerBg.jpg);
+  background-repeat: repeat-x;
+  border-radius: 0px !important;
+}
+
+.navbar a {
+  color: #fff;
+}
+
+.nav>li :hover {
+  background-color: #035AA1 !important;
+}

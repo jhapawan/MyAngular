@@ -36,6 +36,8 @@ import { AddmasterskillComponent } from './admin/addmasterskill/addmasterskill.c
 import { AddBlogComponent } from './add-blog/add-blog.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { ServicesModule } from '../services/services.module';
+import { RightcontentComponent } from './admin/rightcontent/rightcontent.component';
+import { LeftcontentComponent } from './admin/leftcontent/leftcontent.component';
 @NgModule({
   imports: [
     CommonModule, RouterModule, AdminRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule, BsDatepickerModule.forRoot(),
@@ -48,7 +50,7 @@ import { ServicesModule } from '../services/services.module';
   ],
   declarations: [AdminComponent, HeaderComponent, FooterComponent, SettingComponent, MenuComponent,
     UserTypeComponent, UpadateUserComponent, UpdateAboutComponent, AddExeperienceComponent, AddEducationComponent, OrderBy, AddSkillComponent, BreadcrumbComponent,
-    UserGallaryComponent, LoadGalaryComponent, DashboardComponent, ProfileCardComponent, SearchFilterPipe, AddmasterskillComponent, AddBlogComponent]
+    UserGallaryComponent, LoadGalaryComponent, DashboardComponent, ProfileCardComponent, SearchFilterPipe, AddmasterskillComponent, AddBlogComponent, RightcontentComponent, LeftcontentComponent]
   , providers: [AuthGuard, UserServiceService, DataCommunicateService, CommonService]
 })
 export class AdminModule { }

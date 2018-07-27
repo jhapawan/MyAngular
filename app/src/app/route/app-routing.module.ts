@@ -12,15 +12,15 @@ const appRoute: Routes = [
     loadChildren: 'app/admin/admin.module#AdminModule',
     canActivate: [AuthGuard]
   },
+  // {
+  //   path: '',
+  //   loadChildren: 'app/public/public.module#PublicModule',
+  //   data: {
+  //     id: "public"
+  //   },
+  // },
   {
     path: '',
-    loadChildren: 'app/public/public.module#PublicModule',
-    data: {
-      id: "public"
-    },
-  },
-  {
-    path: 'login',
     component: LoginComponent,
     data: { title: 'Contribute Skill - Login' }
   },
