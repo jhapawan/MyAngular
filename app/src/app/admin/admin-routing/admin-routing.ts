@@ -6,12 +6,16 @@ import { UpdateAboutComponent } from './../admin/upadate-user/update-about/updat
 import { UpadateUserComponent } from './../admin/upadate-user/upadate-user.component';
 import { UserTypeComponent } from './../user-type/user-type.component';
 import { AuthGuard } from './../../auth.guard';
-
 import { AdminComponent } from './../admin/admin.component';
-
 import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { ProfileComponent } from '../profile/profile.component';
+import { AboutProfileComponent } from '../profile/about-profile/about-profile.component';
+import { ProfileEduComponent } from '../profile/profile-edu/profile-edu.component';
+import { ProfileWorkComponent } from '../profile/profile-work/profile-work.component';
+import { ProfileSkillComponent } from '../profile/profile-skill/profile-skill.component';
+import { ProfileGalComponent } from '../profile/profile-gal/profile-gal.component';
 
 const appRoute: Routes = [
     {
@@ -24,7 +28,7 @@ const appRoute: Routes = [
         children: [
             {
                 path: '',
-                component: DashboardComponent,               
+                component: DashboardComponent,
                 data: {
                     breadcrumb: "DashBoard",
                     title: 'Contribute Skill - User(s) Feeds'
@@ -40,6 +44,7 @@ const appRoute: Routes = [
                 }
 
             },
+
             {
                 path: 'add-blog',
                 component: AddBlogComponent,
@@ -73,7 +78,58 @@ const appRoute: Routes = [
                 }
             },
         ]
+    }, {
+        path: 'profile',
+        data: {
+            breadcrumb: "User Profile",
+            title: 'View Profile'
+        },
+        component: ProfileComponent,
+        canActivate: [AuthGuard],
+        children: [
+            {
+                path: 'about/:id',
+                component: AboutProfileComponent,
+                data: {
+                    breadcrumb: "Edit Profile",
+                    title: 'Contribute Skill - Profile Edit'
+                }
+            },
+            {
+                path: 'edu/:id',
+                component: ProfileEduComponent,
+                data: {
+                    breadcrumb: "Edit Profile",
+                    title: 'Contribute Skill - Profile Edit Education'
+                }
+            },
+            {
+                path: 'work/:id',
+                component: ProfileWorkComponent,
+                data: {
+                    breadcrumb: "Edit Profile",
+                    title: 'Contribute Skill - Profile Edit Work Experience'
+                }
+            },
+            {
+                path: 'skill/:id',
+                component: ProfileSkillComponent,
+                data: {
+                    breadcrumb: "Edit Profile",
+                    title: 'Contribute Skill - Profile Edit Add Skill'
+                }
+            },
+            {
+                path: 'gal/:id',
+                component: ProfileGalComponent,
+                data: {
+                    breadcrumb: "Edit Profile",
+                    title: 'Contribute Skill - Profile Edit Gallary'
+                }
+            },
+        ]
     }
+
 
 ];
 

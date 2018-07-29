@@ -1,0 +1,16 @@
+.vd_bg-yellow {
+    background-color: #f89c2c !important;
+  }
+  
+  .vd_bg-red {
+    background-color: red !important;
+  }
+  
+  .box-primary {
+    border-top-color: #4caf50 !important;
+  }
+  
+  .nav-tabs-custom>.nav-tabs>li.active {
+    border-top-color: #4caf50 !important;
+  }
+  .todo-list>li{background: #fff !important;}

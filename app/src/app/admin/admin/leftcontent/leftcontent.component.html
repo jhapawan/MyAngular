@@ -1,47 +1,76 @@
-<div class="col-sm-3 well">
-  <div class="well">
-    <p>
-      <a routerLink="/home/profile-edit/{{userSession.userId}}">My Profile</a>
-    </p>
-    <img src="../../../../assets/images/boy.png" class="img-circle" height="65" width="65" alt="Avatar">
+<div class="col-md-3 well">
+  <div class="profile-sidebar">
+    <!-- SIDEBAR USERPIC -->
+    <div class="profile-userpic">
+      <img src="../../../../assets/images/boy.png" class="img-responsive" alt="">
+    </div>
+    <!-- END SIDEBAR USERPIC -->
+    <!-- SIDEBAR USER TITLE -->
+    <div class="profile-usertitle">
+      <div class="profile-usertitle-name">
+        {{userSession.name}}
+      </div>
+      <div class="profile-usertitle-job">
+        {{userSession?.profession}}
+
+
+      </div>
+    </div>
+    <!-- END SIDEBAR USER TITLE -->
+    <!-- SIDEBAR BUTTONS -->
+    <!-- <div class="profile-userbuttons">
+      <button type="button" class="btn btn-success btn-sm">Follow</button>
+      <button type="button" class="btn btn-danger btn-sm">Message</button>
+    </div> -->
+    <!-- END SIDEBAR BUTTONS -->
+    <!-- SIDEBAR MENU -->
+    <hr>
+    <div>
+      <p>
+        <a href="#">Skill(s)</a>
+      </p>
+
+      <p>
+        <!-- 
+        <span *ngFor="let skill of userSession.skill" [ngClass]="{'label label-danger': (skill.proficiencyLevel=='basic') , 'label label-primary': (skill.proficiencyLevel=='average') ,
+        'label label-success': (skill.proficiencyLevel=='good') }">{{skill.skill}}
+        </span> -->
+        <!-- <span class="label label-default" *ngIf="skill.proficiencyLevel=='average'" [ngClass]="{'label label-primary': (skill.proficiencyLevel=='average')}">{{skill.skill}}</span>
+        <span class="label label-default" *ngIf="skill.proficiencyLevel=='good'" [ngClass]="{'label label-success': (skill.proficiencyLevel=='good')}">{{skill.skill}}</span> -->
+        <label for="" *ngFor="let skill of userSession.skill">
+          <!-- <span class="label label-danger">Danger Label</span> -->
+          <span class="label label-default" *ngIf="skill.proficiencyLevel=='good'" [ngClass]="{'label label-success': (skill.proficiencyLevel=='good')}">{{skill.skill}}</span>
+          <span class="label label-default" *ngIf="skill.proficiencyLevel=='average'" [ngClass]="{'label label-primary': (skill.proficiencyLevel=='average')}">{{skill.skill}}</span>
+          <span class="label label-default" *ngIf="skill.proficiencyLevel=='basic'" [ngClass]="{'label label-danger': (skill.proficiencyLevel=='basic')}">{{skill.skill}}</span>
+
+        </label>
+
+
+      </p>
+    </div>
+    <hr>
+
+    <div class="profile-usermenu">
+      <ul class="nav">
+        <li [ngClass]="{'active':activeRoute=='about'}">
+          <a routerLink="/profile/about/{{userSession.userId}}">
+            <i class="fa fa-user"></i> My Profile </a>
+        </li>
+        <li [ngClass]="{'active':activeRoute=='edu'}">
+          <a routerLink="/profile/edu/{{userSession.userId}}">
+            <i class="fa fa-users"></i> My Pack </a>
+        </li>
+        <li [ngClass]="{'active':activeRoute=='edu'}">
+          <a routerLink="/profile/edu/{{userSession.userId}}">
+            <i class="fa fa-leanpub"></i> Post Story </a>
+        </li>
+        <li [ngClass]="{'active':activeRoute=='edu'}">
+          <a routerLink="/profile/edu/{{userSession.userId}}">
+            <i class="fa fa-calendar" aria-hidden="true"></i> Add Event </a>
+        </li>
+
+      </ul>
+    </div>
+    <!-- END MENU -->
   </div>
-  <div class="well">
-    <p>
-      <a href="#">Skill(s)</a>
-    </p>
-
-    <p>
-      <!-- 
-      <span *ngFor="let skill of userSession.skill" [ngClass]="{'label label-danger': (skill.proficiencyLevel=='basic') , 'label label-primary': (skill.proficiencyLevel=='average') ,
-      'label label-success': (skill.proficiencyLevel=='good') }">{{skill.skill}}
-      </span> -->
-      <!-- <span class="label label-default" *ngIf="skill.proficiencyLevel=='average'" [ngClass]="{'label label-primary': (skill.proficiencyLevel=='average')}">{{skill.skill}}</span>
-      <span class="label label-default" *ngIf="skill.proficiencyLevel=='good'" [ngClass]="{'label label-success': (skill.proficiencyLevel=='good')}">{{skill.skill}}</span> -->
-      <label for="" *ngFor="let skill of userSession.skill">
-        <!-- <span class="label label-danger">Danger Label</span> -->
-        <span class="label label-default" *ngIf="skill.proficiencyLevel=='good'" [ngClass]="{'label label-success': (skill.proficiencyLevel=='good')}">{{skill.skill}}</span>
-        <span class="label label-default" *ngIf="skill.proficiencyLevel=='average'" [ngClass]="{'label label-primary': (skill.proficiencyLevel=='average')}">{{skill.skill}}</span>
-        <span class="label label-default" *ngIf="skill.proficiencyLevel=='basic'" [ngClass]="{'label label-danger': (skill.proficiencyLevel=='basic')}">{{skill.skill}}</span>
-
-      </label>
-
-
-    </p>
-  </div>
-  <div class="alert alert-success fade in">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-    <p>
-      <strong>Ey!</strong>
-    </p>
-    People are looking at your profile. Find out who.
-  </div>
-  <p>
-    <a href="#">Link</a>
-  </p>
-  <p>
-    <a href="#">Link</a>
-  </p>
-  <p>
-    <a href="#">Link</a>
-  </p>
 </div>

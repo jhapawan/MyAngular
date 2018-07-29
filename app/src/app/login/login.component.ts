@@ -126,7 +126,7 @@ export class LoginComponent implements OnInit {
       this.autherization.login(this.login.value).subscribe(data => {
         if (data.status == "success") {
           this.userSesssion.access_token = data.token;
-          this.userSesssion.name = data.f;
+          this.userSesssion.name = data.name;
           this.userSesssion.email = data.email;
           this.userSesssion.userId = data.id;
           this.userSesssion.cDate = data.cDate;

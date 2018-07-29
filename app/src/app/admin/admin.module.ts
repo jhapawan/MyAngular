@@ -38,6 +38,13 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { ServicesModule } from '../services/services.module';
 import { RightcontentComponent } from './admin/rightcontent/rightcontent.component';
 import { LeftcontentComponent } from './admin/leftcontent/leftcontent.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileLeftComponent } from './profile/profile-left/profile-left.component';
+import { AboutProfileComponent } from './profile/about-profile/about-profile.component';
+import { ProfileEduComponent } from './profile/profile-edu/profile-edu.component';
+import { ProfileWorkComponent } from './profile/profile-work/profile-work.component';
+import { ProfileSkillComponent } from './profile/profile-skill/profile-skill.component';
+import { ProfileGalComponent } from './profile/profile-gal/profile-gal.component';
 @NgModule({
   imports: [
     CommonModule, RouterModule, AdminRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule, BsDatepickerModule.forRoot(),
@@ -50,7 +57,7 @@ import { LeftcontentComponent } from './admin/leftcontent/leftcontent.component'
   ],
   declarations: [AdminComponent, HeaderComponent, FooterComponent, SettingComponent, MenuComponent,
     UserTypeComponent, UpadateUserComponent, UpdateAboutComponent, AddExeperienceComponent, AddEducationComponent, OrderBy, AddSkillComponent, BreadcrumbComponent,
-    UserGallaryComponent, LoadGalaryComponent, DashboardComponent, ProfileCardComponent, SearchFilterPipe, AddmasterskillComponent, AddBlogComponent, RightcontentComponent, LeftcontentComponent]
+    UserGallaryComponent, LoadGalaryComponent, DashboardComponent, ProfileCardComponent, SearchFilterPipe, AddmasterskillComponent, AddBlogComponent, RightcontentComponent, LeftcontentComponent, ProfileComponent, ProfileLeftComponent, AboutProfileComponent, ProfileEduComponent, ProfileWorkComponent, ProfileSkillComponent, ProfileGalComponent]
   , providers: [AuthGuard, UserServiceService, DataCommunicateService, CommonService]
 })
 export class AdminModule { }

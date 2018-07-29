@@ -1,0 +1,100 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title">About Me</h3>
+    <div class="vd_info tr pull-right">
+      <a class="btn vd_btn btn-xs vd_bg-yellow" *ngIf="!isEditAbout" (click)="editAbout()">
+        <i class="fa fa-pencil append-icon"></i> Edit </a>
+      <a class="btn vd_btn btn-xs vd_bg-yellow" *ngIf="isEditAbout" (click)="editAbout()">
+        <i class="fa fa-close append-icon"></i> Cancel</a>
+    </div>
+
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body" *ngIf="!isEditAbout">
+    <div class="row" style="margin-bottom: 15px;">
+      <div class="col-sm-3">
+        <label class="control-label">Name:</label>
+      </div>
+      <div class="col-sm-9 left-align">
+        {{userData.firstName}} {{userData.lastName}}
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 15px;">
+      <div class="col-sm-3">
+        <label class="control-label">Gender:</label>
+      </div>
+      <div class="col-sm-9 left-align">
+        {{userData.gender}}
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 15px;">
+      <div class="col-sm-3">
+        <label class="control-label">Date of Birth:</label>
+      </div>
+      <div class="col-sm-9 left-align">
+        {{userData.birthDate|date:'dd-MMM-yyyy'}}
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 15px;">
+      <div class="col-sm-3">
+        <label class="control-label">Email:</label>
+      </div>
+      <div class="col-sm-9 left-align">
+        {{userData.email}}
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 15px;">
+      <div class="col-sm-3">
+        <label class="control-label">City:</label>
+      </div>
+      <div class="col-sm-9 left-align">
+        {{userData.city}}
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 15px;">
+      <div class="col-sm-3">
+        <label class="control-label">State:</label>
+      </div>
+      <div class="col-sm-9 left-align">
+        {{userData.state}}
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 15px;">
+      <div class="col-sm-3">
+        <label class="control-label">Country:</label>
+      </div>
+      <div class="col-sm-9 left-align">
+        {{userData.country}}
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 15px;">
+      <div class="col-sm-3">
+        <label class="control-label">Pin Code:</label>
+      </div>
+      <div class="col-sm-9 left-align">
+        {{userData.pinCode}}
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 15px;">
+      <div class="col-sm-3">
+        <label class="control-label">Mobile:</label>
+      </div>
+      <div class="col-sm-9 left-align">
+        {{userData.phone}}
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 15px;">
+      <div class="col-sm-3">
+        <label class="control-label">Introduction:</label>
+      </div>
+      <div class="col-sm-9 left-align">
+        {{userData.about}}
+      </div>
+    </div>
+
+  </div>
+  <div class="box-body" *ngIf="isEditAbout">
+    <app-update-about (profileUpdated)='updateProfile($event)' [isPageRefresh]="loadPageData" [userData]="userData"></app-update-about>
+  </div>
+  <!-- /.box-body -->
+</div>

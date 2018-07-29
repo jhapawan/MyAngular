@@ -2,6 +2,7 @@ export class UserModel {
     constructor() { }
     _id: string;
     email: string;
+    firstName: string;
     name: string;
     provider: string;
     image: string;

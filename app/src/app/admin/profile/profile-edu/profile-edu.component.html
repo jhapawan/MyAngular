@@ -1,0 +1,44 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title">My Education</h3>
+    <div class="vd_info tr pull-right">
+      <div class="vd_info tr pull-right">
+        <a (click)="addExpOrEdu('education')" *ngIf="!isEditExpEdu && userData.education" class="btn vd_btn btn-xs vd_bg-yellow">
+          <i class="fa fa-pencil append-icon"></i> Add More </a>
+        <a class="btn vd_btn btn-xs vd_bg-yellow" *ngIf="isEditExpEdu" (click)="addExpOrEdu('education')">
+          <i class="fa fa-close append-icon"></i> Cancel</a>
+      </div>
+    </div>
+
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body" *ngIf="!isEditExpEdu">
+    <div class="content-list content-menu">
+      <ul class="list-wrapper" *ngIf="userData.education">
+        <li class="mgbt-xs-10" *ngFor="let data of userData.education | orderBy:'classStartFrom':false">
+          <span class="menu-icon vd_green">
+            <i class="fa  fa-circle-o"></i>
+          </span>
+          <span class="menu-text">{{data.nameOfPersuingClass}} at
+            <a href="#">{{data.instituteName}}</a>
+            <span class="menu-info">
+              <span class="menu-date"> {{data.classStartFrom }} ~ {{data.classStartTo }}</span>
+            </span>
+            <div class="vd_info tr pull-right">
+              <a class="btn vd_btn btn-xs vd_bg-yellow" (click)="removeData(data,'edu')" data-toggle="modal" data-target="#modal-default">
+                <i class="fa fa-trash append-icon"></i>
+              </a>
+            </div>
+          </span>
+        </li>
+
+      </ul>
+
+    </div>
+
+  </div>
+  <div class="box-body" *ngIf="isEditExpEdu || !userData.education">
+    <app-add-education (getEducation)='updateExeperienc($event)' [userData]="userData"></app-add-education>
+  </div>
+  <!-- /.box-body -->
+</div>

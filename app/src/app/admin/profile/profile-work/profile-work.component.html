@@ -1,0 +1,43 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title">My Work</h3>
+    <div class="vd_info tr pull-right">
+      <div class="vd_info tr pull-right">
+        <a (click)="addExpOrEdu('exeperience')" *ngIf="!isEditExpEdu && userData.exeperience" class="btn vd_btn btn-xs vd_bg-yellow">
+          <i class="fa fa-pencil append-icon"></i> Add More </a>
+        <a class="btn vd_btn btn-xs vd_bg-yellow" *ngIf="isEditExpEdu" (click)="addExpOrEdu('exeperience')">
+          <i class="fa fa-close append-icon"></i> Cancel</a>
+      </div>
+    </div>
+
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body" *ngIf="!isEditExpEdu">
+    <div class="content-list content-menu">
+      <ul class="list-wrapper" *ngIf="userData.exeperience">
+        <li class="mgbt-xs-10" *ngFor="let data of userData.exeperience | orderBy:'to':false">
+          <span class="menu-icon vd_green">
+            <i class="fa  fa-circle-o"></i>
+          </span>
+          <span class="menu-text">
+            <a href="#">{{data.designation}}</a> at
+            <a href="#">{{data.companyName}}</a>
+            <span class="menu-info">
+              <span class="menu-date"> {{data.from | date:'MMM-yyyy'}} ~ {{data.to | date:'MMM-yyyy'}}</span>
+            </span>
+            <p>{{data.roleResponsibility}}</p>
+            <div class="vd_info tr pull-right">
+              <a class="btn vd_btn btn-xs vd_bg-yellow" (click)="removeData(data,'exp')" data-toggle="modal" data-target="#modal-default">
+                <i class="fa fa-trash append-icon"></i>
+              </a>
+            </div>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="box-body" *ngIf="isEditExpEdu || !userData.exeperience">
+    <app-add-exeperience (getExeperience)='updateExeperienc($event)' [userData]="userData"></app-add-exeperience>
+  </div>
+  <!-- /.box-body -->
+</div>

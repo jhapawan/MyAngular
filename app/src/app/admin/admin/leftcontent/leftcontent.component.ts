@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./leftcontent.component.css']
 })
 export class LeftcontentComponent implements OnInit {
+  activeRoute:string="";
   public userSession: Token = JSON.parse(this.rsa.decrypt(localStorage.getItem("session")));
   constructor(private rsa: RsaService) { }
 

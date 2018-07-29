@@ -31,8 +31,8 @@ module.exports = {
   }
 };
 module.exports.database = function () {
-  // let dbUrl = 'mongodb://ankita:root@ds139899.mlab.com:39899/holiday-bookers';
-  let dbUrl = 'mongodb://127.0.0.1:27017/Myapp';
+   let dbUrl = 'mongodb://ankita:root@ds139899.mlab.com:39899/holiday-bookers';
+  //let dbUrl = 'mongodb://127.0.0.1:27017/Myapp';
   
   let db = require('mongojs')(dbUrl, [], {
     //connectionTimeout: 30000

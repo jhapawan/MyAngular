@@ -19,6 +19,7 @@ declare var google: any;
 export class UpdateAboutComponent implements OnChanges, OnInit {
   @ViewChild('search') public searchElement: ElementRef;
   @Input() userData: UserModel;
+  @Input() isPageRefresh;
   @Output() profileUpdated = new EventEmitter();
   errorMessage: string;
   /*Form Declartion  */
@@ -36,6 +37,8 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
   _id: AbstractControl;
   profession: AbstractControl;
   /* @param fb End of form declartion    */
+  minDate = new Date(2017, 5, 10);
+  maxDate = new Date();
 
   countryArray: any[];
   stateArray: any[];
@@ -47,13 +50,16 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
   }
 
   ngOnInit() {
-    console.log("Ng On init");
+
     this.generateForm();
     //this.loadMap();
+    let date = new Date();
+    date.setFullYear(date.getFullYear() - 14);
+    this.maxDate = date;
 
   }
   ngOnChanges(changes: SimpleChanges) {
-    console.log("Ng On Change");
+
     const name: SimpleChange = changes.name;
     for (let propName in changes) {
       let change = changes[propName];
@@ -75,6 +81,8 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
     }
   }
   generateForm(): any {
+
+
     this.updateProfile = this.fb.group(
       {
         'firstName': [this.userData.name, Validators.compose([])],
@@ -85,8 +93,8 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
         'state': [this.userData.state, Validators.compose([Validators.required])],
         'country': [this.userData.country, Validators.compose([Validators.required])],
         'phone': [this.userData.phone, Validators.compose([Validators.required])],
-        'birthDate': [this.userData.birthDate, Validators.compose([Validators.required])],
-        'pinCode': [this.userData.phone, Validators.compose([Validators.required])],
+        'birthDate': [new Date(this.userData.birthDate), Validators.compose([Validators.required])],
+        'pinCode': [this.userData.pinCode, Validators.compose([Validators.required])],
         'about': [this.userData.about, Validators.compose([Validators.required])],
         'profession': [this.userData.profession, Validators.compose([Validators.required])],
 
@@ -105,6 +113,7 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
     this.profession = this.updateProfile.controls['profession'];
 
   }
+
   loadMap(): any {
     this.mapsAPILoader.load().then(
       () => {
@@ -145,8 +154,11 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
     if (this.updateProfile.valid) {
       this.useApi.updateUser(this.updateProfile.value).subscribe(
         res => {
-          console.log(res);
+
           this.profileUpdated.emit(true);
+          if (this.isPageRefresh) {
+            window.open('/profile/about/' + this._id.value, '_self');
+          }
         }
         , Error => { console.log(Error); }
       )

@@ -1,0 +1,46 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title">My Skill</h3>
+    <div class="vd_info tr pull-right">
+      <div class="vd_info tr pull-right">
+        <a (click)="AddSkills()" *ngIf="!isEditExpEdu && userData.skill" class="btn vd_btn btn-xs vd_bg-yellow">
+          <i class="fa fa-pencil append-icon"></i> Add More </a>
+        <a class="btn vd_btn btn-xs vd_bg-yellow" *ngIf="isEditExpEdu" (click)="AddSkills()">
+          <i class="fa fa-close append-icon"></i> Cancel</a>
+      </div>
+    </div>
+
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body" *ngIf="!isEditExpEdu">
+    <div class="content-list content-menu">
+      <ul class="todo-list" *ngIf="userData.skill">
+        <li *ngFor="let data of userData.skill | orderBy:'skill':true">
+          <div class="progress">
+            <div *ngIf="data.proficiencyLevel=='basic'" role="progressbar" class="col-md-4" style="text-align:center" aria-valuenow="40"
+              aria-valuemin="0" aria-valuemax="100" [style.width]="40+'%'" [ngClass]="{'progress-bar progress-bar-red': (data.proficiencyLevel=='basic')}">
+              {{data.skill}}
+            </div>
+            <div *ngIf="data.proficiencyLevel=='average'" role="progressbar" class="col-md-4" style="text-align:center" aria-valuenow="60"
+              aria-valuemin="0" aria-valuemax="100" [style.width]="60+'%'" [ngClass]="{'progress-bar progress-bar-yellow': (data.proficiencyLevel=='average')}">
+              {{data.skill}}
+            </div>
+            <div *ngIf="data.proficiencyLevel=='good'" role="progressbar" class="col-md-4" style="text-align:center" aria-valuenow="90"
+              aria-valuemin="0" aria-valuemax="100" [style.width]="80+'%'" [ngClass]="{'progress-bar progress-bar-success': (data.proficiencyLevel=='good')}">
+              {{data.skill}}
+            </div>
+
+            <div class="tools">
+              <i (click)="removeData(data,'skill')" class="fa fa-trash-o"></i>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="box-body" *ngIf="isEditExpEdu || !userData.skill">
+    <app-add-skill (updateSkill)='updateSkill($event)' [userData]="userData"></app-add-skill>
+
+  </div>
+  <!-- /.box-body -->
+</div>
