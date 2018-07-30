@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
   constructor(private api: UserServiceService, private rsa: RsaService) { }
 
   ngOnInit() {
-    this.getAllPackUser();
+    
   }
   getFiltredPacked(arg0: any): any {
     if (this.relatedPack) {

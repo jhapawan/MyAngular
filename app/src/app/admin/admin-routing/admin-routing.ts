@@ -1,3 +1,4 @@
+import { MypackComponent } from './../mypack/mypack.component';
 import { AddBlogComponent } from './../add-blog/add-blog.component';
 import { AddmasterskillComponent } from './../admin/addmasterskill/addmasterskill.component';
 import { AddSkillComponent } from './../admin/upadate-user/add-skill/add-skill.component';
@@ -44,7 +45,6 @@ const appRoute: Routes = [
                 }
 
             },
-
             {
                 path: 'add-blog',
                 component: AddBlogComponent,
@@ -61,6 +61,14 @@ const appRoute: Routes = [
                 component: UpadateUserComponent,
                 data: {
                     breadcrumb: "View Profile"
+                }
+            },
+            {
+                path: 'mypack',
+                component: MypackComponent,
+                data: {
+                    breadcrumb: "View Profile",
+                    title: 'Contribute Skill - My Pack'
                 }
             },
             {

@@ -27,8 +27,12 @@
     <div class="profile-usermenu">
       <ul class="nav">
         <li [ngClass]="{'active':activeRoute=='about'}">
+          <a routerLink="/home/dashboard">
+            <i class="fa fa-home"></i> Home </a>
+        </li>
+        <li [ngClass]="{'active':activeRoute=='about'}">
           <a routerLink="/profile/about/{{userSession.userId}}">
-            <i class="glyphicon glyphicon-home"></i>
+            <i class="fa fa-edit"></i>
             About </a>
         </li>
         <li [ngClass]="{'active':activeRoute=='edu'}">

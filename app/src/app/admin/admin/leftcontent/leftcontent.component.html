@@ -53,11 +53,15 @@
     <div class="profile-usermenu">
       <ul class="nav">
         <li [ngClass]="{'active':activeRoute=='about'}">
+          <a routerLink="/home/dashboard">
+            <i class="fa fa-home"></i> Home </a>
+        </li>
+        <li [ngClass]="{'active':activeRoute=='about'}">
           <a routerLink="/profile/about/{{userSession.userId}}">
-            <i class="fa fa-user"></i> My Profile </a>
+            <i class="fa fa-edit"></i> My Profile </a>
         </li>
         <li [ngClass]="{'active':activeRoute=='edu'}">
-          <a routerLink="/profile/edu/{{userSession.userId}}">
+          <a routerLink="/home/mypack">
             <i class="fa fa-users"></i> My Pack </a>
         </li>
         <li [ngClass]="{'active':activeRoute=='edu'}">

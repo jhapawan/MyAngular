@@ -1477,33 +1477,30 @@ module.exports.saveGalaryImage = function (req, res) {
 	});
 }
 module.exports.getAllPack = function (req, res) {
-	console.log(req.decoded._id);
+
 	var query = {
-		"isactive": true,
+		"isActive": true,
 		"_id": {
 			$ne: new ObjectID(req.decoded._id)
 		}
 	};
+	console.log(query);
 	var getfields = {
-		"name": 1,
-		"image": 1,
+		"firstName": 1,
+		"lastName": 1,
+		"_id": 1,
+		"about": 1,
 		"city": 1,
 		"state": 1,
 		"country": 1,
+		"email": 1,
 		"phone": 1,
-		"about": 1,
-		"profession": 1,
-		"exeperience": 1,
-		"education": 1,
+		"profilePic": 1,
 		"skill": 1,
-		"galary": 1,
-		"isactive": 1,
-		"facebookImage": 1,
-		"googleImage": 1,
-		"facebookId": 1,
-		"googleId": 1
-
-
+		"cdt": 1,
+		"isActive": 1,
+		"profession": 1,
+		"pinCode": 1
 	};
 
 	db.user.find(query, getfields, function (err, result) {
@@ -1516,7 +1513,9 @@ module.exports.getAllPack = function (req, res) {
 				let finalArr = [],
 					myRes = [];
 				result.forEach(function (y) {
-					if ((y.isactive && y.isactive !== '0'))
+
+					if ((y.isActive && y.isActive !== '0'))
+
 						finalArr.push(y);
 				});
 				if (finalArr.length) {

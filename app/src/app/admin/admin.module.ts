@@ -1,3 +1,4 @@
+
 import { SearchFilterPipe } from './../shared/search-filter.pipe';
 import { NgSelectizeModule } from 'ng-selectize';
 import { OrderBy } from './../services/shared/orderby';
@@ -16,7 +17,6 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SettingComponent } from './setting/setting.component';
 import { MenuComponent } from './menu/menu.component';
-
 import { UserTypeComponent } from './user-type/user-type.component';
 import { UpadateUserComponent } from './admin/upadate-user/upadate-user.component';
 import { UpdateAboutComponent } from './admin/upadate-user/update-about/update-about.component';
@@ -45,6 +45,10 @@ import { ProfileEduComponent } from './profile/profile-edu/profile-edu.component
 import { ProfileWorkComponent } from './profile/profile-work/profile-work.component';
 import { ProfileSkillComponent } from './profile/profile-skill/profile-skill.component';
 import { ProfileGalComponent } from './profile/profile-gal/profile-gal.component';
+import { MypackComponent } from './mypack/mypack.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { VirtualScrollModule } from 'angular2-virtual-scroll';
+
 @NgModule({
   imports: [
     CommonModule, RouterModule, AdminRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule, BsDatepickerModule.forRoot(),
@@ -53,11 +57,11 @@ import { ProfileGalComponent } from './profile/profile-gal/profile-gal.component
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyChuVjyJNiDLZjU-S59au7YfvQiPnASVQ0',
       libraries: ['places'],
-    }), SocialSignupModule, NgSelectizeModule, ServicesModule
+    }), SocialSignupModule, NgSelectizeModule, ServicesModule,InfiniteScrollModule ,VirtualScrollModule 
   ],
   declarations: [AdminComponent, HeaderComponent, FooterComponent, SettingComponent, MenuComponent,
     UserTypeComponent, UpadateUserComponent, UpdateAboutComponent, AddExeperienceComponent, AddEducationComponent, OrderBy, AddSkillComponent, BreadcrumbComponent,
-    UserGallaryComponent, LoadGalaryComponent, DashboardComponent, ProfileCardComponent, SearchFilterPipe, AddmasterskillComponent, AddBlogComponent, RightcontentComponent, LeftcontentComponent, ProfileComponent, ProfileLeftComponent, AboutProfileComponent, ProfileEduComponent, ProfileWorkComponent, ProfileSkillComponent, ProfileGalComponent]
+    UserGallaryComponent, LoadGalaryComponent, DashboardComponent, ProfileCardComponent, SearchFilterPipe, AddmasterskillComponent, AddBlogComponent, RightcontentComponent, LeftcontentComponent, ProfileComponent, ProfileLeftComponent, AboutProfileComponent, ProfileEduComponent, ProfileWorkComponent, ProfileSkillComponent, ProfileGalComponent, MypackComponent]
   , providers: [AuthGuard, UserServiceService, DataCommunicateService, CommonService]
 })
 export class AdminModule { }

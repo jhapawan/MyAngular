@@ -1,0 +1,16 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title">Pack(s)</h3>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
+
+    <div class="row" *ngFor="let item of createRowRange();let row=index">
+      <div class="col-sm-4" *ngFor="let item of createColumnRange();let column=index" [@someCoolAnimation]="'fadeIn'">
+        <app-profile-card [profileData]="filtredPack[column+(3*row)]" *ngIf="column+(3*row)<filtredPack.length"></app-profile-card>
+      </div>
+    </div>
+
+    <!-- /.modal -->
+    <!-- /.box-body -->
+  </div>

@@ -1,3 +1,5 @@
+import { RsaService } from './../../../shared/helper/rsaservice';
+import { Token } from './../../../shared/usertoken';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -7,10 +9,11 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ProfileCardComponent implements OnInit {
   @Input() profileData: any;
-  constructor() { }
+  public userSession: Token = JSON.parse(this.rsa.decrypt(localStorage.getItem("session")));
+  constructor(private rsa: RsaService) { }
 
   ngOnInit() {
-    
+
   }
 
 }
