@@ -48,6 +48,7 @@ import { ProfileGalComponent } from './profile/profile-gal/profile-gal.component
 import { MypackComponent } from './mypack/mypack.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
+import { SearchpackPipe } from './mypack/searchpack.pipe';
 
 @NgModule({
   imports: [
@@ -61,7 +62,7 @@ import { VirtualScrollModule } from 'angular2-virtual-scroll';
   ],
   declarations: [AdminComponent, HeaderComponent, FooterComponent, SettingComponent, MenuComponent,
     UserTypeComponent, UpadateUserComponent, UpdateAboutComponent, AddExeperienceComponent, AddEducationComponent, OrderBy, AddSkillComponent, BreadcrumbComponent,
-    UserGallaryComponent, LoadGalaryComponent, DashboardComponent, ProfileCardComponent, SearchFilterPipe, AddmasterskillComponent, AddBlogComponent, RightcontentComponent, LeftcontentComponent, ProfileComponent, ProfileLeftComponent, AboutProfileComponent, ProfileEduComponent, ProfileWorkComponent, ProfileSkillComponent, ProfileGalComponent, MypackComponent]
+    UserGallaryComponent, LoadGalaryComponent, DashboardComponent, ProfileCardComponent, SearchFilterPipe, AddmasterskillComponent, AddBlogComponent, RightcontentComponent, LeftcontentComponent, ProfileComponent, ProfileLeftComponent, AboutProfileComponent, ProfileEduComponent, ProfileWorkComponent, ProfileSkillComponent, ProfileGalComponent, MypackComponent, SearchpackPipe]
   , providers: [AuthGuard, UserServiceService, DataCommunicateService, CommonService]
 })
 export class AdminModule { }

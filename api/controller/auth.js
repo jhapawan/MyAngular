@@ -12,7 +12,7 @@ function AuthController() {}
 
 module.exports.login = function (req, res) {
     try {
-        console.log(req.body.email);
+
         var email = req.body.email;
         var pwd = req.body.password;
         var query = {
@@ -25,11 +25,11 @@ module.exports.login = function (req, res) {
         };
         //find user and generate Token for further validation
         db.user.findOne(query, function (err, data, next) {
-            
+
             if (err) console.log("Error" + err);
             //check if user exists
             if (!data) {
-                console.log("asd");
+
                 res.json({
                     status: config.ERROR_STATUS,
                     msg: "The email address or phone number that you've entered doesn't match any account. Sign up for an account."

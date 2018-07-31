@@ -4,13 +4,28 @@
   </div>
   <!-- /.box-header -->
   <div class="box-body">
+    <div class="row">
+      <div id="custom-search-input">
+        <div class="input-group col-md-12">
+          <ng-selectize [options]="requiredDropdownOptions" [(ngModel)]="value" [hasOptionsPlaceholder]="'Select or Type the Skill to filter pack'"
+            [config]="config"></ng-selectize>
+          <!-- <pre>Current value: {{value | json}}</pre> -->
+          <span class="input-group-btn">
+            <button class="btn btn-danger" type="button">
+              <span class=" glyphicon glyphicon-search"></span>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngFor="let data of relatedPack | searchpack:value ;let row=index">
+      <div>{{row}} {{updateFilterData(data,row)}}</div>
 
+
+    </div>
     <div class="row" *ngFor="let item of createRowRange();let row=index">
-      <div class="col-sm-4" *ngFor="let item of createColumnRange();let column=index" [@someCoolAnimation]="'fadeIn'">
+      <div class="col-sm-4" *ngFor="let item of createColumnRange();let column=index " [@someCoolAnimation]="'fadeIn'">
         <app-profile-card [profileData]="filtredPack[column+(3*row)]" *ngIf="column+(3*row)<filtredPack.length"></app-profile-card>
       </div>
     </div>
-
-    <!-- /.modal -->
-    <!-- /.box-body -->
   </div>
