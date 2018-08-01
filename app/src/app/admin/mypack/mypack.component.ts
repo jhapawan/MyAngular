@@ -4,7 +4,7 @@ import { CommonService } from './../../services/shared/common.service';
 import { Token } from './../../shared/usertoken';
 import { RsaService } from './../../shared/helper/rsaservice';
 import { UserServiceService } from './../../services/user/user-service.service';
-import { Component, OnInit, trigger, transition, style, animate } from '@angular/core';
+import { Component, OnInit, trigger, transition, style, animate, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-mypack',
@@ -27,6 +27,8 @@ export class MypackComponent implements OnInit {
   public relatedPack: Array<any> = [];
   public filtredPack: Array<any> = [];
   public searchValue: string = "";
+  private pageSize = 6;
+  private pageNo = 1;
   selected: string;
   query: "";
   requiredDropdownOptions: any = ExampleValues_Frameworks.slice(0);
@@ -39,66 +41,18 @@ export class MypackComponent implements OnInit {
   };
 
   value: any = [];
-  states: string[] = [
-    'Alabama',
-    'Alaska',
-    'Arizona',
-    'Arkansas',
-    'California',
-    'Colorado',
-    'Connecticut',
-    'Delaware',
-    'Florida',
-    'Georgia',
-    'Hawaii',
-    'Idaho',
-    'Illinois',
-    'Indiana',
-    'Iowa',
-    'Kansas',
-    'Kentucky',
-    'Louisiana',
-    'Maine',
-    'Maryland',
-    'Massachusetts',
-    'Michigan',
-    'Minnesota',
-    'Mississippi',
-    'Missouri',
-    'Montana',
-    'Nebraska',
-    'Nevada',
-    'New Hampshire',
-    'New Jersey',
-    'New Mexico',
-    'New York',
-    'North Dakota',
-    'North Carolina',
-    'Ohio',
-    'Oklahoma',
-    'Oregon',
-    'Pennsylvania',
-    'Rhode Island',
-    'South Carolina',
-    'South Dakota',
-    'Tennessee',
-    'Texas',
-    'Utah',
-    'Vermont',
-    'Virginia',
-    'Washington',
-    'West Virginia',
-    'Wisconsin',
-    'Wyoming'
-  ];
-  constructor(private api: UserServiceService, private rsa: RsaService, private commonApi: CommonService) {
-    this.LoadCountry();
+
+  currentPage = 1;
+  page: number;
+
+  constructor(private api: UserServiceService, private rsa: RsaService, private commonApi: CommonService, private rcd: ChangeDetectorRef) {
   }
   ngOnInit() {
     this.getAllPackUser();
-    this.userSession.skill.forEach(element => {
-      this.value.push(element.skill);
-    });
+    // this.userSession.skill.forEach(element => {
+    //   this.value.push(element.skill);
+    // });
+
 
   }
   getFiltredPacked(arg0: any): any {
@@ -126,42 +80,51 @@ export class MypackComponent implements OnInit {
     this.api.geAllPack().subscribe(
       res => {
         this.relatedPack = res.resultArr;
-        //this.getFiltredPacked(this.userSession.skill);
+        //this.getFiltredPacked(this.userSession.skill);        
+        this.filtredPack = this.Paginator(this.relatedPack, this.pageNo, this.pageSize).data;
       }
     )
   }
-  createRowRange() {
-    var items: number[] = [];
-    let row = Math.ceil(this.filtredPack.length / 3);
-    for (var i = 1; i <= row; i++) {
-      items.push(i);
-    }
-    return items;
-  }
-  createColumnRange() {
-    var items: number[] = [];
-    let column = 3;
-    for (var i = 1; i <= column; i++) {
-      items.push(i);
-    }
-    return items;
-  }
-  LoadCountry(): any {
-    this.commonApi.getCountries().subscribe(res => {
-      this.states = res.data;
+  // createRowRange() {
+  //   var items: number[] = [];
+  //   let row = Math.ceil(this.relatedPack.length / 3);
+  //   for (var i = 1; i <= row; i++) {
+  //     items.push(i);
+  //   }
+  //   return items;
+  // }
+  // createColumnRange() {
+  //   var items: number[] = [];
+  //   let column = 3;
+  //   for (var i = 1; i <= column; i++) {
+  //     items.push(i);
+  //   }
+  //   return items;
+  // }
 
-    }, Error => {
-      console.log(Error);
-    });
+  pageChanged(event: any): void {
+    this.page = event.page;
+    this.filtredPack = this.Paginator(this.relatedPack, this.page, this.pageSize).data;
   }
-  updateFilterData(data, i): void {
-    if (i === 0) {
-      this.relatedPack = [];
-    }
-    else {
-      this.filtredPack.push(data);
-    }
-  }
+  Paginator(items, page, per_page) {
+    var page = page || 1,
+      per_page = per_page || 10,
+      offset = (page - 1) * per_page,
 
+      paginatedItems = items.slice(offset).slice(0, per_page),
+      total_pages = Math.ceil(items.length / per_page);
+    return {
+      page: page,
+      per_page: per_page,
+      pre_page: page - 1 ? page - 1 : null,
+      next_page: (total_pages > page) ? page + 1 : null,
+      total: items.length,
+      total_pages: total_pages,
+      data: paginatedItems
+    };
+  }
+  onChange() {
+    this.currentPage = 1;
+  }
 }
 

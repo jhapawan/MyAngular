@@ -1484,7 +1484,7 @@ module.exports.getAllPack = function (req, res) {
 			$ne: new ObjectID(req.decoded._id)
 		}
 	};
-	console.log(query);
+	
 	var getfields = {
 		"firstName": 1,
 		"lastName": 1,
@@ -1515,7 +1515,6 @@ module.exports.getAllPack = function (req, res) {
 				result.forEach(function (y) {
 
 					if ((y.isActive && y.isActive !== '0'))
-
 						finalArr.push(y);
 				});
 				if (finalArr.length) {

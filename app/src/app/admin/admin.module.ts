@@ -20,7 +20,7 @@ import { MenuComponent } from './menu/menu.component';
 import { UserTypeComponent } from './user-type/user-type.component';
 import { UpadateUserComponent } from './admin/upadate-user/upadate-user.component';
 import { UpdateAboutComponent } from './admin/upadate-user/update-about/update-about.component';
-import { BsDatepickerModule, TypeaheadModule } from 'ngx-bootstrap';
+import { BsDatepickerModule, TypeaheadModule, PaginationModule } from 'ngx-bootstrap';
 import { AgmCoreModule } from '@agm/core';
 import { AddExeperienceComponent } from './admin/upadate-user/add-exeperience/add-exeperience.component';
 import { AddEducationComponent } from './admin/upadate-user/add-education/add-education.component';
@@ -46,9 +46,9 @@ import { ProfileWorkComponent } from './profile/profile-work/profile-work.compon
 import { ProfileSkillComponent } from './profile/profile-skill/profile-skill.component';
 import { ProfileGalComponent } from './profile/profile-gal/profile-gal.component';
 import { MypackComponent } from './mypack/mypack.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { VirtualScrollModule } from 'angular2-virtual-scroll';
+
 import { SearchpackPipe } from './mypack/searchpack.pipe';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   imports: [
@@ -58,7 +58,7 @@ import { SearchpackPipe } from './mypack/searchpack.pipe';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyChuVjyJNiDLZjU-S59au7YfvQiPnASVQ0',
       libraries: ['places'],
-    }), SocialSignupModule, NgSelectizeModule, ServicesModule,InfiniteScrollModule ,VirtualScrollModule 
+    }), SocialSignupModule, NgSelectizeModule, ServicesModule, InfiniteScrollModule, PaginationModule.forRoot()
   ],
   declarations: [AdminComponent, HeaderComponent, FooterComponent, SettingComponent, MenuComponent,
     UserTypeComponent, UpadateUserComponent, UpdateAboutComponent, AddExeperienceComponent, AddEducationComponent, OrderBy, AddSkillComponent, BreadcrumbComponent,
