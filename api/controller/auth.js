@@ -53,8 +53,16 @@ module.exports.login = function (req, res) {
                         email: data.email,
                         birthDate: data.birthDate,
                         profilePic: data.filename,
-                        skill: data.skill
-
+                        skill: data.skill,
+                        city:data.city,
+                        state:data.state,
+                        country:data.country,
+                        phone:data.phone,
+                        pinCode:data.pinCode,
+                        about:data.about,
+                        profession:data.profession,
+                        education:data.education,
+                        intrestedIn:data.intrestedIn,
                     });
                 } else {
                     res.json({

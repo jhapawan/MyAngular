@@ -1,5 +1,6 @@
+import { IntrestedIn } from './../../../../shared/selectize/selectize';
 import { UserServiceService } from './../../../../services/user/user-service.service';
-import { Observable } from 'rxjs';
+
 import { CommonService } from './../../../../services/shared/common.service';
 import { AbstractControl, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { UserModel } from './../../../../shared/model/user';
@@ -7,7 +8,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, SimpleChange, CUSTO
 import { MapsAPILoader } from '@agm/core';
 // import { } from '@types/googlemaps';
 import { ViewChild, ElementRef, NgZone, Output, EventEmitter } from '@angular/core';
-import { TypeaheadMatch } from 'ngx-bootstrap';
+
 declare var google: any;
 @Component({
   selector: 'app-update-about',
@@ -35,6 +36,7 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
   pinCode: AbstractControl;
   about: AbstractControl;
   _id: AbstractControl;
+  intrestedIn: AbstractControl;
   profession: AbstractControl;
   /* @param fb End of form declartion    */
   minDate = new Date(2017, 5, 10);
@@ -44,7 +46,16 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
   stateArray: any[];
   customSelected: string;
   stateCity: any[];
+  requiredDropdownOptions: any = IntrestedIn.slice(0);
+  config: any = {
+    create: true,
+    labelField: 'label',
+    valueField: 'value',
+    maxItems: 50,
+    searchField: ['label', 'value'],
+  };
 
+  value: any = [];
   constructor(private fb: FormBuilder, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private api: CommonService, private useApi: UserServiceService) {
     this.LoadCountry();
   }
@@ -97,6 +108,7 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
         'pinCode': [this.userData.pinCode, Validators.compose([Validators.required])],
         'about': [this.userData.about, Validators.compose([Validators.required])],
         'profession': [this.userData.profession, Validators.compose([Validators.required])],
+        'intrestedIn': [this.userData.profession, Validators.compose([])]
 
       })
     this.firstName = this.updateProfile.controls['firstName'];
@@ -111,6 +123,7 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
     this.about = this.updateProfile.controls['about'];
     this._id = this.updateProfile.controls['_id'];
     this.profession = this.updateProfile.controls['profession'];
+    this.intrestedIn = this.updateProfile.controls['intrestedIn'];
 
   }
 

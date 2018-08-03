@@ -618,7 +618,8 @@ module.exports.updateUserById = function (req, res) {
 						"birthDate": req.body.birthDate,
 						"pinCode": req.body.pinCode,
 						"about": req.body.about,
-						"profession": req.body.profession
+						"profession": req.body.profession,
+						"intrestedIn": req.body.intrestedIn
 
 					}
 				},
@@ -1484,7 +1485,7 @@ module.exports.getAllPack = function (req, res) {
 			$ne: new ObjectID(req.decoded._id)
 		}
 	};
-	
+
 	var getfields = {
 		"firstName": 1,
 		"lastName": 1,

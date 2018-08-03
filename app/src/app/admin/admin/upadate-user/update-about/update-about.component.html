@@ -25,7 +25,8 @@
     <div class="col-sm-6">
       <div class="form-group has-feedback" [ngClass]="{'has-error': (!birthDate.valid && birthDate.touched), 'has-success': (birthDate.valid && birthDate.touched)}">
         <label>Birth Date:</label>
-        <input class="form-control"  [maxDate]="maxDate" type="text" [formControl]="birthDate" [bsConfig]="{dateInputFormat: 'DD/MM/YYYY'}" bsDatepicker placeholder="Birth Date" [formControl]="birthDate">
+        <input class="form-control" [maxDate]="maxDate" type="text" [formControl]="birthDate" [bsConfig]="{dateInputFormat: 'DD/MM/YYYY'}"
+          bsDatepicker placeholder="Birth Date" [formControl]="birthDate">
       </div>
     </div>
   </div>
@@ -75,6 +76,17 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="form-group has-feedback" [ngClass]="{'has-error': (!about.valid && about.touched), 'has-success': (about.valid && about.touched)}">
+        <label>Intrested In:</label>
+        <!-- <input formControlName="about" multiple class="form-control"> -->
+        <ng-selectize [formControl]="intrestedIn" [options]="requiredDropdownOptions" [hasOptionsPlaceholder]="'Are you intrested in ?'"
+          [config]="config"></ng-selectize>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group has-feedback" [ngClass]="{'has-error': (!about.valid && about.touched), 'has-success': (about.valid && about.touched)}">
         <label>About:</label>
         <!-- <input formControlName="about" multiple class="form-control"> -->
         <textarea class="form-control" formControlName="about" rows="3" placeholder="Enter ..."></textarea>
@@ -84,7 +96,8 @@
   </div>
   <div class="row">
     <div class="col-sm-12 pull-right">
-      <a (click)="updateProfileSubmit()" class="btn vd_btn btn-xs btn-primary"> <i class="fa fa-save append-icon"></i> Update  </a>
+      <a (click)="updateProfileSubmit()" class="btn vd_btn btn-xs btn-primary">
+        <i class="fa fa-save append-icon"></i> Update </a>
     </div>
   </div>
 

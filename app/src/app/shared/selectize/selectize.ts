@@ -44,6 +44,30 @@ export const ExampleValues_Frameworks: ExampleSelectizeOption[] = <ExampleSelect
 		code: 'ROR'
 	}
 ];
+export const IntrestedIn: ExampleSelectizeOption[] = <ExampleSelectizeOption[]>[
+	{
+		label: 'Traning',
+		value: 'Traning',
+		code: 'Traning'
+	}, {
+		label: 'Teaching',
+		value: 'Teaching',
+		code: 'Teaching'
+	}, {
+		label: 'Consultant',
+		value: 'Consultant',
+		code: 'Consultant'
+	}, {
+		label: 'Blogging',
+		value: 'Blogging',
+		code: 'Blogging'
+	}
+	, {
+		label: 'On Line Class',
+		value: 'On Line Class',
+		code: 'On Line Class'
+	}
+];
 
 export const ExampleValues_Lanugages: ExampleSelectizeOption[] = <ExampleSelectizeOption[]>[
 	{
