@@ -1,11 +1,12 @@
 <app-header></app-header>
+<toaster-container [toasterconfig]="toastConfig"></toaster-container>
 <div class="container text-center">
   <div class="row">
     <app-profile-left></app-profile-left>
     <div class="col-sm-9">
       <router-outlet></router-outlet>
     </div>
-   
+
   </div>
 </div>
 <app-footer></app-footer>

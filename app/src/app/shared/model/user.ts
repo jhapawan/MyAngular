@@ -26,4 +26,5 @@ export class UserModel {
     facebookImage: string;
     googleId: string;
     googleImage: string;
+    intrestedIn: any = []
 }

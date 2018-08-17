@@ -1,7 +1,7 @@
 import { AuthGuard } from './auth.guard';
 import { AdminModule } from './admin/admin.module';
 import { ServicesModule } from './services/services.module';
-import { SocialSignupModule } from './social-signup/social-signup.module';
+// import { SocialSignupModule } from './social-signup/social-signup.module';
 import { AppRoutingModule } from './route/app-routing.module';
 import { RouterModule } from '@angular/router';
 import { LoginModule } from './login/login.module';
@@ -20,7 +20,8 @@ import { PublicModule } from './public/public.module';
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,
-    LoginModule, AppRoutingModule, SocialSignupModule,
+    LoginModule, AppRoutingModule, 
+    //SocialSignupModule,
     ServicesModule, HttpClientModule, AdminModule,PublicModule
   ],
 

@@ -15,23 +15,22 @@
               <span class=" glyphicon glyphicon-search"></span>
             </button>
           </span>
-          
+
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12 pull-right" *ngIf="relatedPack.length>0">
-        <pagination [totalItems]="relatedPack.length" class="pull-right" [(ngModel)]="currentPage" [itemsPerPage]="6" (pageChanged)="pageChanged($event)"></pagination>
+      <div class="col-sm-12 col-12" *ngIf="filtredPack.length>0">
+        <pagination [totalItems]="filtredPack.length" class="pull-right" [(ngModel)]="currentPage" [itemsPerPage]="6" (pageChanged)="pageChanged($event)"></pagination>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-4" style="float: left" *ngFor="let data of filtredPack | searchpack:value ;let row=index">
+      <div class="col-sm-4" *ngFor="let data of pagedPacked;let row=index">
         <app-profile-card [profileData]="data"></app-profile-card>
       </div>
     </div>
     <div class="row">
-
-      <div class="col-sm-12 col-12" *ngIf="relatedPack.length>0">
-        <pagination [totalItems]="relatedPack.length" class="pull-right" [(ngModel)]="currentPage" [itemsPerPage]="6" (pageChanged)="pageChanged($event)"></pagination>
+      <div class="col-sm-12 col-12" *ngIf="filtredPack.length>0">
+        <pagination [totalItems]="filtredPack.length" class="pull-right" [(ngModel)]="currentPage" [itemsPerPage]="6" (pageChanged)="pageChanged($event)"></pagination>
       </div>
     </div>

@@ -49,20 +49,25 @@ import { MypackComponent } from './mypack/mypack.component';
 
 import { SearchpackPipe } from './mypack/searchpack.pipe';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
+import { Ng2SearchPipeModule } from 'ng2-search-filter'; //importing the module
+import { ToastMessage } from '../shared/toast-message';
+import { ToasterModule } from 'angular2-toaster';
 
 @NgModule({
   imports: [
     CommonModule, RouterModule, AdminRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule, BsDatepickerModule.forRoot(),
-    CKEditorModule,
-    TypeaheadModule.forRoot(),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyChuVjyJNiDLZjU-S59au7YfvQiPnASVQ0',
-      libraries: ['places'],
-    }), SocialSignupModule, NgSelectizeModule, ServicesModule, InfiniteScrollModule, PaginationModule.forRoot()
+    CKEditorModule, Ng2SearchPipeModule,
+    TypeaheadModule.forRoot(), ToasterModule.forRoot(),
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'AIzaSyChuVjyJNiDLZjU-S59au7YfvQiPnASVQ0',
+    //   libraries: ['places'],
+    // }), 
+    NgxPaginationModule, SocialSignupModule, NgSelectizeModule, ServicesModule, InfiniteScrollModule, PaginationModule.forRoot()
   ],
   declarations: [AdminComponent, HeaderComponent, FooterComponent, SettingComponent, MenuComponent,
     UserTypeComponent, UpadateUserComponent, UpdateAboutComponent, AddExeperienceComponent, AddEducationComponent, OrderBy, AddSkillComponent, BreadcrumbComponent,
     UserGallaryComponent, LoadGalaryComponent, DashboardComponent, ProfileCardComponent, SearchFilterPipe, AddmasterskillComponent, AddBlogComponent, RightcontentComponent, LeftcontentComponent, ProfileComponent, ProfileLeftComponent, AboutProfileComponent, ProfileEduComponent, ProfileWorkComponent, ProfileSkillComponent, ProfileGalComponent, MypackComponent, SearchpackPipe]
-  , providers: [AuthGuard, UserServiceService, DataCommunicateService, CommonService]
+  , providers: [AuthGuard, UserServiceService, DataCommunicateService, CommonService, ToastMessage]
 })
 export class AdminModule { }

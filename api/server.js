@@ -22,7 +22,7 @@ app.use(logger("dev"));
  Enable cors 
  */
 var corsOptions = {
-  origin: ['http://174.138.35.157:4200', 'http://localhost:4200'],
+  origin: ['http://174.138.35.157:4200', 'http://localhost:4200','http://localhost:3100'],
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 

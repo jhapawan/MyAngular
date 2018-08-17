@@ -2,18 +2,15 @@
 import { RsaService } from './../shared/helper/rsaservice';
 import { DataCommunicateService } from './../services/data-communicate.service';
 import { Router } from '@angular/router';
-
 import { LoaderService } from './../services/shared/loader';
 import { AuthenticateService } from './../services/auth/authenticate.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'angular5-social-login';
 import { FacebookLoginProvider } from 'angular5-social-login';
 import { GoogleLoginProvider } from 'angular5-social-login';
-
 import { Token } from '../shared/usertoken';
 import { FormGroup, AbstractControl, FormBuilder, Validators, FormControl } from '@angular/forms';
-
-
+import { ToastMessage } from '../shared/toast-message';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -24,16 +21,19 @@ export class LoginComponent implements OnInit {
   public login: FormGroup;
   public errorMessage: string = "";
   private userSesssion = new Token();
-
   public email: AbstractControl;
   public password: AbstractControl;
-
   // public _retypePassword: string;
+
+
+  toastConfig = this.toastMessage.toastConfig;
+
   constructor(private socialAuthService: AuthService,
     private autherization: AuthenticateService, private loadSpinner: LoaderService
     , private router: Router,
     private fb: FormBuilder
     , private dataService: DataCommunicateService, private rsaService: RsaService
+    , private toastMessage: ToastMessage
   ) {
 
   }
@@ -97,6 +97,7 @@ export class LoginComponent implements OnInit {
           }
           else {
             console.log("Error");
+
             this.loadSpinner.display(false);
           }
         });
@@ -104,6 +105,7 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
   // public register() {
   //   this.loadSpinner.display(true);
   //   this.userSocialLogin.email = this.email.value;
@@ -143,15 +145,20 @@ export class LoginComponent implements OnInit {
           this.userSesssion.galary = data.galary;
           localStorage.setItem("session", this.rsaService.encrypt(JSON.stringify(this.userSesssion)));
           this.loadSpinner.display(false);
+          this.toastMessage.popSuccess("Successfully Loged In.", "Loged in successfully", true);
           window.open('/home/dashboard', '_self');
         }
         else {
-          console.log("Error");
+          this.toastMessage.popError("Error", data.msg, true);
           this.loadSpinner.display(false);
         }
+      }, error => {
+        this.toastMessage.popError("Error", error, true);
       }
-        , error => { console.log("Error"); }
       )
+    }
+    else {
+      this.toastMessage.popError("Error", "Invalid Login credential!", true);
     }
   }
   validateAllFormFields(formGroup: FormGroup) {         //{1}
@@ -164,5 +171,6 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-}
 
+
+}

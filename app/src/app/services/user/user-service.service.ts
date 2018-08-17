@@ -126,6 +126,7 @@ export class UserServiceService {
         'x-access-token': this.accessToken.access_token
       })
     };
+    //console.log(this.accessToken.access_token);
     return this.http.get(url, httpOptions).map(res => res);
   }
 

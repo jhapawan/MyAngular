@@ -1502,6 +1502,7 @@ module.exports.getAllPack = function (req, res) {
 		"isActive": 1,
 		"profession": 1,
 		"pinCode": 1
+		,"intrestedIn": 1
 	};
 
 	db.user.find(query, getfields, function (err, result) {

@@ -26,6 +26,8 @@ export class MypackComponent implements OnInit {
   public userSession: Token = JSON.parse(this.rsa.decrypt(localStorage.getItem("session")));
   public relatedPack: Array<any> = [];
   public filtredPack: Array<any> = [];
+  public pagedPacked: Array<any> = [];
+
   public searchValue: string = "";
   private pageSize = 6;
   private pageNo = 1;
@@ -52,8 +54,6 @@ export class MypackComponent implements OnInit {
     // this.userSession.skill.forEach(element => {
     //   this.value.push(element.skill);
     // });
-
-
   }
   getFiltredPacked(arg0: any): any {
     let arr: Array<Token> = [];
@@ -80,8 +80,10 @@ export class MypackComponent implements OnInit {
     this.api.geAllPack().subscribe(
       res => {
         this.relatedPack = res.resultArr;
-        //this.getFiltredPacked(this.userSession.skill);        
-        this.filtredPack = this.Paginator(this.relatedPack, this.pageNo, this.pageSize).data;
+        //this.getFiltredPacked(this.userSession.skill);  
+        //this.``      
+        this.filtredPack = this.filterArray(this.relatedPack, this.value);
+        this.pagedPacked = this.Paginator(this.filtredPack, this.pageNo, this.pageSize).data;
       }
     )
   }
@@ -101,10 +103,10 @@ export class MypackComponent implements OnInit {
   //   }
   //   return items;
   // }
-
   pageChanged(event: any): void {
     this.page = event.page;
-    this.filtredPack = this.Paginator(this.relatedPack, this.page, this.pageSize).data;
+    this.filtredPack = this.filterArray(this.relatedPack, this.value);
+    this.pagedPacked = this.Paginator(this.filtredPack, this.page, this.pageSize).data;
   }
   Paginator(items, page, per_page) {
     var page = page || 1,
@@ -125,6 +127,29 @@ export class MypackComponent implements OnInit {
   }
   onChange() {
     this.currentPage = 1;
+    this.pageNo = 1;
+    this.filtredPack = this.filterArray(this.relatedPack, this.value);
+    this.pagedPacked = this.Paginator(this.filtredPack, this.pageNo, this.pageSize).data;
+
+  }
+  filterArray(array: any, args: string[]): Array<any> {
+    let arr: Array<any> = [];
+    if (args.length == 0) return array;
+    else {
+      var filteredArray = array.filter(function (array_el) {
+        if (array_el.skill) {
+          return array_el.skill.filter(function (nestedFilter) {
+            return args.filter(function (argumented) {
+              //return (nestedFilter.skill == argumented.skill);
+              if (nestedFilter.skill.toLowerCase().trim() == argumented.toLowerCase().trim()) {
+                arr.push(array_el);
+              }
+            })
+          })
+        }
+      });
+      return arr;
+    }
   }
 }
 

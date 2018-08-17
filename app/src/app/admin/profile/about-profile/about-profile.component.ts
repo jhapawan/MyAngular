@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserServiceService } from '../../../services/user/user-service.service';
 import { RsaService } from '../../../shared/helper/rsaservice';
 import { Token } from '../../../shared/usertoken';
+import { ToastMessage } from '../../../shared/toast-message';
 
 @Component({
   selector: 'app-about-profile',
@@ -22,7 +23,9 @@ export class AboutProfileComponent implements OnInit {
   changeDetectorRef: ChangeDetectorRef[] = [];
   editSkills: boolean = false;
   loadPageData: boolean = false;
-  constructor(private route: ActivatedRoute, private api: UserServiceService, private rsa: RsaService) {
+  toastConfig = this.toastMessage.toastConfig;
+  constructor(private route: ActivatedRoute, private api: UserServiceService,
+    private rsa: RsaService, private toastMessage: ToastMessage) {
     this.route.params.subscribe(params => { this.paramId = params.id; });
   }
   ngOnInit() {
@@ -69,6 +72,7 @@ export class AboutProfileComponent implements OnInit {
   updateProfile(value) {
     this.isEditAbout = !this.isEditAbout;
     this.getUserData();
-    this.loadPageData=true;
+    this.loadPageData = true;
+    //this.toastMessage.popSuccess("Success", "Details updated successfully!", true);
   }
 }

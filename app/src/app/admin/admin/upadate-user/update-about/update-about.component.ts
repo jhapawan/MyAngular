@@ -1,13 +1,13 @@
 import { IntrestedIn } from './../../../../shared/selectize/selectize';
 import { UserServiceService } from './../../../../services/user/user-service.service';
-
 import { CommonService } from './../../../../services/shared/common.service';
 import { AbstractControl, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { UserModel } from './../../../../shared/model/user';
 import { Component, OnInit, Input, OnChanges, SimpleChanges, SimpleChange, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { MapsAPILoader } from '@agm/core';
+
 // import { } from '@types/googlemaps';
 import { ViewChild, ElementRef, NgZone, Output, EventEmitter } from '@angular/core';
+import { ToastMessage } from '../../../../shared/toast-message';
 
 declare var google: any;
 @Component({
@@ -22,6 +22,7 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
   @Input() userData: UserModel;
   @Input() isPageRefresh;
   @Output() profileUpdated = new EventEmitter();
+  toastConfig = this.toastMessage.toastConfig;
   errorMessage: string;
   /*Form Declartion  */
   updateProfile: FormGroup;
@@ -56,7 +57,9 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
   };
 
   value: any = [];
-  constructor(private fb: FormBuilder, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private api: CommonService, private useApi: UserServiceService) {
+  constructor(private fb: FormBuilder, private ngZone: NgZone,
+    private api: CommonService,
+    private useApi: UserServiceService, private toastMessage: ToastMessage) {
     this.LoadCountry();
   }
 
@@ -108,7 +111,7 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
         'pinCode': [this.userData.pinCode, Validators.compose([Validators.required])],
         'about': [this.userData.about, Validators.compose([Validators.required])],
         'profession': [this.userData.profession, Validators.compose([Validators.required])],
-        'intrestedIn': [this.userData.profession, Validators.compose([])]
+        'intrestedIn': [this.userData.intrestedIn, Validators.compose([])]
 
       })
     this.firstName = this.updateProfile.controls['firstName'];
@@ -127,22 +130,22 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
 
   }
 
-  loadMap(): any {
-    this.mapsAPILoader.load().then(
-      () => {
-        let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, { types: ["address"] });
-        autocomplete.addListener("place_changed", () => {
-          console.log("Place Changed");
-          this.ngZone.run(() => {
-            let place: any = autocomplete.getPlace();
-            if (place.geometry === undefined || place.geometry === null) {
-              return;
-            }
-          });
-        });
-      }
-    );
-  }
+  // loadMap(): any {
+  //   this.mapsAPILoader.load().then(
+  //     () => {
+  //       let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, { types: ["address"] });
+  //       autocomplete.addListener("place_changed", () => {
+  //         console.log("Place Changed");
+  //         this.ngZone.run(() => {
+  //           let place: any = autocomplete.getPlace();
+  //           if (place.geometry === undefined || place.geometry === null) {
+  //             return;
+  //           }
+  //         });
+  //       });
+  //     }
+  //   );
+  // }
   /*Load Country */
   LoadCountry(): any {
     this.api.getCountries().subscribe(res => {
@@ -167,7 +170,7 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
     if (this.updateProfile.valid) {
       this.useApi.updateUser(this.updateProfile.value).subscribe(
         res => {
-
+          this.toastMessage.popSuccess("Success", "Data has been updated successfully!", true);
           this.profileUpdated.emit(true);
           if (this.isPageRefresh) {
             window.open('/profile/about/' + this._id.value, '_self');
@@ -178,6 +181,7 @@ export class UpdateAboutComponent implements OnChanges, OnInit {
     }
     else {
       this.errorMessage = "Form Not Valid.";
+      this.toastMessage.popError("Error", "Form is not valid!", true);
       this.validateAllFormFields(this.updateProfile);
     }
   }
